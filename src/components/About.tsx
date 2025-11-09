@@ -3,125 +3,185 @@ import { Code2, Gamepad2, Sparkles } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-20 px-4 bg-muted">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center bg-tech-gradient bg-clip-text text-transparent">
-          About Me
-        </h2>
-        <div className="h-1 w-20 bg-tech-gradient mx-auto mb-12 rounded-full" />
+        {/* Manual header */}
+        <div className="border-4 border-foreground p-4 bg-white mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight">
+            Assembly Instructions: Tom Erland Husby
+          </h2>
+          <p className="text-sm font-mono mt-2">Model: GAME-DEV-2025 | Version: 2.0 | Parts included: Skills, Experience, Education</p>
+        </div>
         
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-primary">Who I Am</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              I'm a passionate game developer with a keen eye for detail and a drive to create 
-              engaging interactive experiences. My journey in game development has led me to 
-              explore various aspects of the creative process, from gameplay mechanics to 
-              immersive sound design.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              With expertise in modern game development technologies and a creative approach 
-              to problem-solving, I bring ideas to life through code and innovation.
-            </p>
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {/* Parts list style */}
+          <div className="border-2 border-foreground bg-white p-6">
+            <div className="flex items-center gap-2 mb-4 border-b-2 border-foreground pb-2">
+              <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold bg-primary text-primary-foreground">
+                A
+              </div>
+              <h3 className="text-xl font-bold uppercase">Core Components</h3>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="mt-1 w-6 h-6 border-2 border-foreground flex items-center justify-center text-xs font-bold">1</div>
+                <div>
+                  <p className="font-semibold">Game Development Skills</p>
+                  <p className="text-sm text-muted-foreground">Passion for creating engaging interactive experiences</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="mt-1 w-6 h-6 border-2 border-foreground flex items-center justify-center text-xs font-bold">2</div>
+                <div>
+                  <p className="font-semibold">Technical Expertise</p>
+                  <p className="text-sm text-muted-foreground">Modern game development technologies</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="mt-1 w-6 h-6 border-2 border-foreground flex items-center justify-center text-xs font-bold">3</div>
+                <div>
+                  <p className="font-semibold">Creative Problem Solving</p>
+                  <p className="text-sm text-muted-foreground">Bringing ideas to life through code</p>
+                </div>
+              </div>
+            </div>
           </div>
           
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-primary">What I Do</h3>
+          {/* Function diagram */}
+          <div className="border-2 border-foreground bg-white p-6">
+            <div className="flex items-center gap-2 mb-4 border-b-2 border-foreground pb-2">
+              <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold bg-secondary text-secondary-foreground">
+                B
+              </div>
+              <h3 className="text-xl font-bold uppercase">Capabilities</h3>
+            </div>
             <div className="space-y-3">
-              <div className="flex items-start gap-3 p-4 border border-border rounded-lg bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors">
-                <Gamepad2 className="text-primary mt-1 flex-shrink-0" size={24} />
+              <div className="border-2 border-foreground p-3 flex items-center gap-3">
+                <Gamepad2 size={24} strokeWidth={3} />
                 <div>
-                  <h4 className="font-semibold mb-1">Game Development</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Creating engaging gameplay mechanics and immersive experiences
-                  </p>
+                  <p className="font-bold text-sm">Game Development</p>
+                  <p className="text-xs text-muted-foreground">Engaging gameplay mechanics</p>
                 </div>
               </div>
-              
-              <div className="flex items-start gap-3 p-4 border border-border rounded-lg bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors">
-                <Code2 className="text-primary mt-1 flex-shrink-0" size={24} />
+              <div className="border-2 border-foreground p-3 flex items-center gap-3">
+                <Code2 size={24} strokeWidth={3} />
                 <div>
-                  <h4 className="font-semibold mb-1">Technical Design</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Implementing robust systems and optimized solutions
-                  </p>
+                  <p className="font-bold text-sm">Technical Design</p>
+                  <p className="text-xs text-muted-foreground">Robust systems & optimization</p>
                 </div>
               </div>
-              
-              <div className="flex items-start gap-3 p-4 border border-border rounded-lg bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors">
-                <Sparkles className="text-primary mt-1 flex-shrink-0" size={24} />
+              <div className="border-2 border-foreground p-3 flex items-center gap-3">
+                <Sparkles size={24} strokeWidth={3} />
                 <div>
-                  <h4 className="font-semibold mb-1">Creative Innovation</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Pushing boundaries with cutting-edge technology and design
-                  </p>
+                  <p className="font-bold text-sm">Creative Innovation</p>
+                  <p className="text-xs text-muted-foreground">Cutting-edge technology</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div className="space-y-6">
-          <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold mb-6 text-primary">Experience & Skills</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-semibold mb-3 text-lg">Technical Skills</h4>
-                <div className="flex flex-wrap gap-2">
-                  {["Unity", "Unreal Engine", "C#", "C++", "Game Design", "3D Modeling", "Web Technologies"].map((skill) => (
-                    <span 
-                      key={skill}
-                      className="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-3 text-lg">Specializations</h4>
-                <div className="flex flex-wrap gap-2">
-                  {["Gameplay Programming", "Audio Design", "UI/UX", "Level Design", "Optimization", "Multiplayer Systems"].map((spec) => (
-                    <span 
-                      key={spec}
-                      className="px-3 py-1 bg-secondary/10 border border-secondary/30 rounded-full text-sm text-secondary"
-                    >
-                      {spec}
-                    </span>
-                  ))}
-                </div>
+        {/* Skills as parts diagram */}
+        <Card className="border-2 border-foreground p-6 bg-white mb-6">
+          <div className="flex items-center gap-2 mb-6 border-b-2 border-foreground pb-2">
+            <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold bg-primary text-primary-foreground">
+              C
+            </div>
+            <h3 className="text-xl font-bold uppercase">Technical Specifications</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <p className="font-bold mb-3 text-sm uppercase border-b border-foreground pb-1">◆ Technical Skills</p>
+              <div className="flex flex-wrap gap-2">
+                {["Unity", "Unreal Engine", "C#", "C++", "Game Design", "3D Modeling", "Web Technologies"].map((skill, i) => (
+                  <span 
+                    key={skill}
+                    className="px-3 py-1 border-2 border-foreground text-xs font-bold"
+                  >
+                    C{i+1}. {skill}
+                  </span>
+                ))}
               </div>
             </div>
-          </Card>
-          
-          <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold mb-6 text-primary">Work Experience</h3>
-            <div className="space-y-6">
-              <div className="border-l-2 border-primary/30 pl-4">
-                <h4 className="font-semibold text-lg">Game Developer</h4>
+            
+            <div>
+              <p className="font-bold mb-3 text-sm uppercase border-b border-foreground pb-1">◆ Specializations</p>
+              <div className="flex flex-wrap gap-2">
+                {["Gameplay Programming", "Audio Design", "UI/UX", "Level Design", "Optimization", "Multiplayer Systems"].map((spec, i) => (
+                  <span 
+                    key={spec}
+                    className="px-3 py-1 border-2 border-foreground bg-secondary text-xs font-bold"
+                  >
+                    C{i+8}. {spec}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Card>
+        
+        {/* Work experience as assembly steps */}
+        <Card className="border-2 border-foreground p-6 bg-white mb-6">
+          <div className="flex items-center gap-2 mb-6 border-b-2 border-foreground pb-2">
+            <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold">
+              📋
+            </div>
+            <h3 className="text-xl font-bold uppercase">Assembly History (Work Experience)</h3>
+          </div>
+          <div className="space-y-6">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 border-2 border-foreground flex items-center justify-center font-bold text-xl bg-muted">
+                1
+              </div>
+              <div className="flex-1 border-l-4 border-dashed border-foreground pl-4">
+                <p className="font-bold">Game Developer</p>
                 <p className="text-sm text-muted-foreground mb-2">Company Name • Year - Present</p>
-                <p className="text-muted-foreground">Add your work experience details here.</p>
+                <p className="text-sm">Add your work experience details here.</p>
               </div>
-              
-              <div className="border-l-2 border-primary/30 pl-4">
-                <h4 className="font-semibold text-lg">Previous Position</h4>
+            </div>
+            
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-12 h-12 border-2 border-foreground flex items-center justify-center font-bold text-xl bg-muted">
+                2
+              </div>
+              <div className="flex-1 border-l-4 border-dashed border-foreground pl-4">
+                <p className="font-bold">Previous Position</p>
                 <p className="text-sm text-muted-foreground mb-2">Company Name • Year - Year</p>
-                <p className="text-muted-foreground">Add your previous work experience here.</p>
+                <p className="text-sm">Add your previous work experience here.</p>
               </div>
             </div>
-          </Card>
-          
-          <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
-            <h3 className="text-2xl font-bold mb-6 text-primary">Education</h3>
-            <div className="space-y-4">
-              <div className="border-l-2 border-primary/30 pl-4">
-                <h4 className="font-semibold text-lg">Degree/Certification</h4>
-                <p className="text-sm text-muted-foreground mb-2">Institution Name • Year</p>
-                <p className="text-muted-foreground">Add your education details here.</p>
+          </div>
+        </Card>
+        
+        {/* Education */}
+        <Card className="border-2 border-foreground p-6 bg-white">
+          <div className="flex items-center gap-2 mb-6 border-b-2 border-foreground pb-2">
+            <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold">
+              🎓
+            </div>
+            <h3 className="text-xl font-bold uppercase">Certification & Training</h3>
+          </div>
+          <div className="space-y-4">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0 w-10 h-10 border-2 border-foreground flex items-center justify-center font-bold bg-muted">
+                ✓
+              </div>
+              <div>
+                <p className="font-bold">Degree/Certification</p>
+                <p className="text-sm text-muted-foreground mb-1">Institution Name • Year</p>
+                <p className="text-sm">Add your education details here.</p>
               </div>
             </div>
-          </Card>
+          </div>
+        </Card>
+
+        {/* Warning label */}
+        <div className="mt-8 border-2 border-foreground bg-secondary p-4 flex items-center gap-3">
+          <div className="text-3xl">⚠️</div>
+          <div>
+            <p className="font-bold text-sm">IMPORTANT!</p>
+            <p className="text-xs">This developer requires regular caffeine maintenance and occasional debugging sessions.</p>
+          </div>
         </div>
       </div>
     </section>

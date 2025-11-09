@@ -20,64 +20,65 @@ const Navigation = () => {
   };
 
   const navItems = [
-    { label: "Home", id: "home" },
-    { label: "About", id: "about" },
-    { label: "Games", id: "games" },
-    { label: "Contact", id: "contact" },
+    { label: "Home", id: "home", step: "1" },
+    { label: "About", id: "about", step: "2" },
+    { label: "Games", id: "games", step: "3" },
+    { label: "Contact", id: "contact", step: "4" },
   ];
 
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md border-b border-primary/20 shadow-[var(--glow-primary)]" 
-          : "bg-transparent"
+          ? "bg-white border-b-4 border-foreground shadow-[0_6px_0px_0px_rgba(0,0,0,1)]" 
+          : "bg-white/95 border-b-2 border-foreground"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
+          {/* Logo as manual style */}
           <button 
             onClick={() => scrollToSection("home")}
-            className="text-xl font-bold bg-tech-gradient bg-clip-text text-transparent cursor-pointer bg-transparent border-none"
+            className="font-bold cursor-pointer bg-transparent border-2 border-foreground px-3 py-1 hover:bg-primary hover:text-primary-foreground transition-colors"
           >
-            TEH
+            <span className="text-lg font-mono">T.E.HUSBY</span>
           </button>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-2">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer bg-transparent border-none relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full"
+                className="text-sm font-bold cursor-pointer bg-transparent border-2 border-foreground px-4 py-2 hover:bg-primary hover:text-primary-foreground transition-colors uppercase font-mono"
               >
-                {item.label}
+                {item.step}. {item.label}
               </button>
             ))}
           </div>
           
           {/* Mobile Menu Button */}
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
-            className="md:hidden"
+            className="md:hidden border-2 border-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={24} strokeWidth={3} /> : <Menu size={24} strokeWidth={3} />}
           </Button>
         </div>
         
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-primary/20 bg-background/95 backdrop-blur-md animate-slide-in-bottom">
-            <div className="flex flex-col gap-4">
+          <div className="md:hidden py-4 border-t-2 border-foreground bg-white">
+            <div className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-left px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors rounded cursor-pointer bg-transparent border-none"
+                  className="text-left px-4 py-3 text-sm font-bold border-2 border-foreground hover:bg-primary hover:text-primary-foreground transition-colors cursor-pointer bg-transparent uppercase font-mono"
                 >
-                  {item.label}
+                  STEP {item.step}: {item.label}
                 </button>
               ))}
             </div>
