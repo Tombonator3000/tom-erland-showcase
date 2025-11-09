@@ -4,11 +4,11 @@ import { ExternalLink, Gamepad2 } from "lucide-react";
 
 const games = [
   {
-    title: "Project Nebula",
-    description: "A space exploration game featuring dynamic procedural generation and immersive storytelling. Navigate through star systems, discover alien civilizations, and uncover ancient mysteries.",
-    tech: ["Unity", "C#", "Procedural Gen"],
-    status: "In Development",
-    link: "#",
+    title: "Vector War",
+    description: "An intense multiplayer battle game featuring vector-based graphics and fast-paced action. Strategic gameplay with dynamic combat mechanics.",
+    tech: ["Web Technologies", "Real-time Multiplayer", "Vector Graphics"],
+    status: "Released",
+    link: "https://vector-war-games.lovable.app/",
   },
   {
     title: "Shadow Realms",
@@ -85,8 +85,10 @@ const Games = () => {
                 variant="ghost" 
                 size="sm"
                 className="w-full border border-primary/30 hover:border-primary group-hover:shadow-[var(--glow-primary)] transition-all duration-300"
+                onClick={() => window.open(game.link, '_blank')}
+                disabled={game.link === "#"}
               >
-                View Details <ExternalLink size={16} className="ml-2" />
+                {game.link === "#" ? "Coming Soon" : "Play Game"} <ExternalLink size={16} className="ml-2" />
               </Button>
             </Card>
           ))}

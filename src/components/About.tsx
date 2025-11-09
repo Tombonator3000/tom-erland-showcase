@@ -61,38 +61,68 @@ const About = () => {
           </div>
         </div>
         
-        <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
-          <h3 className="text-2xl font-bold mb-6 text-primary">Experience & Skills</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold mb-3 text-lg">Technical Skills</h4>
-              <div className="flex flex-wrap gap-2">
-                {["Unity", "Unreal Engine", "C#", "C++", "Game Design", "3D Modeling"].map((skill) => (
-                  <span 
-                    key={skill}
-                    className="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary"
-                  >
-                    {skill}
-                  </span>
-                ))}
+        <div className="space-y-6">
+          <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
+            <h3 className="text-2xl font-bold mb-6 text-primary">Experience & Skills</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold mb-3 text-lg">Technical Skills</h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Unity", "Unreal Engine", "C#", "C++", "Game Design", "3D Modeling", "Web Technologies"].map((skill) => (
+                    <span 
+                      key={skill}
+                      className="px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="font-semibold mb-3 text-lg">Specializations</h4>
+                <div className="flex flex-wrap gap-2">
+                  {["Gameplay Programming", "Audio Design", "UI/UX", "Level Design", "Optimization", "Multiplayer Systems"].map((spec) => (
+                    <span 
+                      key={spec}
+                      className="px-3 py-1 bg-secondary/10 border border-secondary/30 rounded-full text-sm text-secondary"
+                    >
+                      {spec}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-            
-            <div>
-              <h4 className="font-semibold mb-3 text-lg">Specializations</h4>
-              <div className="flex flex-wrap gap-2">
-                {["Gameplay Programming", "Audio Design", "UI/UX", "Level Design", "Optimization"].map((spec) => (
-                  <span 
-                    key={spec}
-                    className="px-3 py-1 bg-secondary/10 border border-secondary/30 rounded-full text-sm text-secondary"
-                  >
-                    {spec}
-                  </span>
-                ))}
+          </Card>
+          
+          <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
+            <h3 className="text-2xl font-bold mb-6 text-primary">Work Experience</h3>
+            <div className="space-y-6">
+              <div className="border-l-2 border-primary/30 pl-4">
+                <h4 className="font-semibold text-lg">Game Developer</h4>
+                <p className="text-sm text-muted-foreground mb-2">Company Name • Year - Present</p>
+                <p className="text-muted-foreground">Add your work experience details here.</p>
+              </div>
+              
+              <div className="border-l-2 border-primary/30 pl-4">
+                <h4 className="font-semibold text-lg">Previous Position</h4>
+                <p className="text-sm text-muted-foreground mb-2">Company Name • Year - Year</p>
+                <p className="text-muted-foreground">Add your previous work experience here.</p>
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+          
+          <Card className="p-8 border-primary/20 bg-card/50 backdrop-blur-sm">
+            <h3 className="text-2xl font-bold mb-6 text-primary">Education</h3>
+            <div className="space-y-4">
+              <div className="border-l-2 border-primary/30 pl-4">
+                <h4 className="font-semibold text-lg">Degree/Certification</h4>
+                <p className="text-sm text-muted-foreground mb-2">Institution Name • Year</p>
+                <p className="text-muted-foreground">Add your education details here.</p>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     </section>
   );
