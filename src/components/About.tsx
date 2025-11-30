@@ -1,186 +1,257 @@
-import { Card } from "@/components/ui/card";
-import { Code2, Gamepad2, Sparkles } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
+import { Code2, Gamepad2, Sparkles, Briefcase, GraduationCap, Award, Zap } from "lucide-react";
+import { useParallax, useElementInView } from "@/hooks/use-parallax";
+
+const skills = [
+  { name: "Unity", level: 95, color: "from-purple-500 to-pink-500" },
+  { name: "Unreal Engine", level: 85, color: "from-cyan-500 to-blue-500" },
+  { name: "C#", level: 90, color: "from-purple-500 to-cyan-500" },
+  { name: "C++", level: 80, color: "from-pink-500 to-purple-500" },
+  { name: "Game Design", level: 92, color: "from-cyan-500 to-pink-500" },
+  { name: "3D Modeling", level: 75, color: "from-blue-500 to-purple-500" },
+];
+
+const experience = [
+  {
+    title: "Senior Game Developer",
+    company: "Game Studio",
+    period: "2020 - Present",
+    description: "Leading development of multiplayer games and interactive experiences. Architecting game systems and mentoring junior developers.",
+    tech: ["Unity", "C#", "Multiplayer", "Game Design"],
+  },
+  {
+    title: "Game Developer",
+    company: "Interactive Media Company",
+    period: "2017 - 2020",
+    description: "Developed gameplay systems, AI behaviors, and optimization solutions for mobile and console platforms.",
+    tech: ["Unreal Engine", "C++", "AI Systems"],
+  },
+  {
+    title: "Junior Developer",
+    company: "Indie Game Studio",
+    period: "2015 - 2017",
+    description: "Started career creating indie games, learning game development fundamentals and shipping products.",
+    tech: ["Unity", "Game Design", "Prototyping"],
+  },
+];
+
+const education = [
+  {
+    degree: "Bachelor in Game Development",
+    school: "University of Technology",
+    year: "2015",
+    description: "Specialized in game programming and interactive design.",
+  },
+];
 
 const About = () => {
-  return (
-    <section id="about" className="py-20 px-4 bg-muted">
-      <div className="container mx-auto max-w-6xl">
-        {/* Manual header */}
-        <div className="border-4 border-foreground p-4 bg-white mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight">
-            Assembly Instructions: Tom Erland Husby
-          </h2>
-          <p className="text-sm font-mono mt-2">Model: GAME-DEV-2025 | Version: 2.0 | Parts included: Skills, Experience, Education</p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {/* Parts list style */}
-          <div className="border-2 border-foreground bg-white p-6">
-            <div className="flex items-center gap-2 mb-4 border-b-2 border-foreground pb-2">
-              <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold bg-primary text-primary-foreground">
-                A
-              </div>
-              <h3 className="text-xl font-bold uppercase">Core Components</h3>
-            </div>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-6 h-6 border-2 border-foreground flex items-center justify-center text-xs font-bold">1</div>
-                <div>
-                  <p className="font-semibold">Game Development Skills</p>
-                  <p className="text-sm text-muted-foreground">Passion for creating engaging interactive experiences</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-6 h-6 border-2 border-foreground flex items-center justify-center text-xs font-bold">2</div>
-                <div>
-                  <p className="font-semibold">Technical Expertise</p>
-                  <p className="text-sm text-muted-foreground">Modern game development technologies</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="mt-1 w-6 h-6 border-2 border-foreground flex items-center justify-center text-xs font-bold">3</div>
-                <div>
-                  <p className="font-semibold">Creative Problem Solving</p>
-                  <p className="text-sm text-muted-foreground">Bringing ideas to life through code</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Function diagram */}
-          <div className="border-2 border-foreground bg-white p-6">
-            <div className="flex items-center gap-2 mb-4 border-b-2 border-foreground pb-2">
-              <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold bg-secondary text-secondary-foreground">
-                B
-              </div>
-              <h3 className="text-xl font-bold uppercase">Capabilities</h3>
-            </div>
-            <div className="space-y-3">
-              <div className="border-2 border-foreground p-3 flex items-center gap-3">
-                <Gamepad2 size={24} strokeWidth={3} />
-                <div>
-                  <p className="font-bold text-sm">Game Development</p>
-                  <p className="text-xs text-muted-foreground">Engaging gameplay mechanics</p>
-                </div>
-              </div>
-              <div className="border-2 border-foreground p-3 flex items-center gap-3">
-                <Code2 size={24} strokeWidth={3} />
-                <div>
-                  <p className="font-bold text-sm">Technical Design</p>
-                  <p className="text-xs text-muted-foreground">Robust systems & optimization</p>
-                </div>
-              </div>
-              <div className="border-2 border-foreground p-3 flex items-center gap-3">
-                <Sparkles size={24} strokeWidth={3} />
-                <div>
-                  <p className="font-bold text-sm">Creative Innovation</p>
-                  <p className="text-xs text-muted-foreground">Cutting-edge technology</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Skills as parts diagram */}
-        <Card className="border-2 border-foreground p-6 bg-white mb-6">
-          <div className="flex items-center gap-2 mb-6 border-b-2 border-foreground pb-2">
-            <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold bg-primary text-primary-foreground">
-              C
-            </div>
-            <h3 className="text-xl font-bold uppercase">Technical Specifications</h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <p className="font-bold mb-3 text-sm uppercase border-b border-foreground pb-1">◆ Technical Skills</p>
-              <div className="flex flex-wrap gap-2">
-                {["Unity", "Unreal Engine", "C#", "C++", "Game Design", "3D Modeling", "Web Technologies"].map((skill, i) => (
-                  <span 
-                    key={skill}
-                    className="px-3 py-1 border-2 border-foreground text-xs font-bold"
-                  >
-                    C{i+1}. {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <p className="font-bold mb-3 text-sm uppercase border-b border-foreground pb-1">◆ Specializations</p>
-              <div className="flex flex-wrap gap-2">
-                {["Gameplay Programming", "Audio Design", "UI/UX", "Level Design", "Optimization", "Multiplayer Systems"].map((spec, i) => (
-                  <span 
-                    key={spec}
-                    className="px-3 py-1 border-2 border-foreground bg-secondary text-xs font-bold"
-                  >
-                    C{i+8}. {spec}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Card>
-        
-        {/* Work experience as assembly steps */}
-        <Card className="border-2 border-foreground p-6 bg-white mb-6">
-          <div className="flex items-center gap-2 mb-6 border-b-2 border-foreground pb-2">
-            <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold">
-              📋
-            </div>
-            <h3 className="text-xl font-bold uppercase">Assembly History (Work Experience)</h3>
-          </div>
-          <div className="space-y-6">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 border-2 border-foreground flex items-center justify-center font-bold text-xl bg-muted">
-                1
-              </div>
-              <div className="flex-1 border-l-4 border-dashed border-foreground pl-4">
-                <p className="font-bold">Game Developer</p>
-                <p className="text-sm text-muted-foreground mb-2">Company Name • Year - Present</p>
-                <p className="text-sm">Add your work experience details here.</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-12 h-12 border-2 border-foreground flex items-center justify-center font-bold text-xl bg-muted">
-                2
-              </div>
-              <div className="flex-1 border-l-4 border-dashed border-foreground pl-4">
-                <p className="font-bold">Previous Position</p>
-                <p className="text-sm text-muted-foreground mb-2">Company Name • Year - Year</p>
-                <p className="text-sm">Add your previous work experience here.</p>
-              </div>
-            </div>
-          </div>
-        </Card>
-        
-        {/* Education */}
-        <Card className="border-2 border-foreground p-6 bg-white">
-          <div className="flex items-center gap-2 mb-6 border-b-2 border-foreground pb-2">
-            <div className="w-8 h-8 border-2 border-foreground flex items-center justify-center font-bold">
-              🎓
-            </div>
-            <h3 className="text-xl font-bold uppercase">Certification & Training</h3>
-          </div>
-          <div className="space-y-4">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 border-2 border-foreground flex items-center justify-center font-bold bg-muted">
-                ✓
-              </div>
-              <div>
-                <p className="font-bold">Degree/Certification</p>
-                <p className="text-sm text-muted-foreground mb-1">Institution Name • Year</p>
-                <p className="text-sm">Add your education details here.</p>
-              </div>
-            </div>
-          </div>
-        </Card>
+  const parallaxOffset = useParallax(0.2);
+  const [headerRef, headerInView] = useElementInView(0.2);
+  const [skillsRef, skillsInView] = useElementInView(0.2);
+  const [expRef, expInView] = useElementInView(0.1);
+  const [eduRef, eduInView] = useElementInView(0.2);
 
-        {/* Warning label */}
-        <div className="mt-8 border-2 border-foreground bg-secondary p-4 flex items-center gap-3">
-          <div className="text-3xl">⚠️</div>
-          <div>
-            <p className="font-bold text-sm">IMPORTANT!</p>
-            <p className="text-xs">This developer requires regular caffeine maintenance and occasional debugging sessions.</p>
+  return (
+    <section id="about" className="relative py-32 px-4 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-dots opacity-30" />
+      <div
+        className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[150px]"
+        style={{ transform: `translateY(${parallaxOffset * 0.5}px)` }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px]"
+        style={{ transform: `translateY(${-parallaxOffset * 0.3}px)` }}
+      />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
+        {/* Section header */}
+        <div
+          ref={headerRef}
+          className={`text-center mb-20 reveal ${headerInView ? 'visible' : ''}`}
+        >
+          <span className="inline-block px-4 py-1 glass rounded-full text-sm text-purple-400 mb-4">
+            About Me
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="gradient-text">Crafting Digital</span>
+            <br />
+            <span className="text-foreground">Experiences</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Passionate game developer with a focus on creating engaging, innovative
+            interactive experiences. I combine technical expertise with creative vision
+            to bring ideas to life.
+          </p>
+        </div>
+
+        {/* Skills section */}
+        <div
+          ref={skillsRef}
+          className={`mb-24 reveal ${skillsInView ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.2s' }}
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 glass rounded-xl flex items-center justify-center glow">
+              <Zap className="text-purple-400" size={24} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold">Technical Skills</h3>
+              <p className="text-muted-foreground text-sm">Core competencies</p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {skills.map((skill, index) => (
+              <div
+                key={skill.name}
+                className="glass rounded-xl p-5 card-hover"
+                style={{ transitionDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-semibold">{skill.name}</span>
+                  <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                </div>
+                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000`}
+                    style={{
+                      width: skillsInView ? `${skill.level}%` : '0%',
+                      transitionDelay: `${index * 0.15}s`
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Capabilities grid */}
+        <div className={`grid md:grid-cols-3 gap-6 mb-24 stagger-children ${skillsInView ? 'visible' : ''}`}>
+          <div className="glass rounded-2xl p-8 card-hover group">
+            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Gamepad2 className="text-purple-400" size={28} />
+            </div>
+            <h4 className="text-xl font-bold mb-3">Game Development</h4>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Creating engaging gameplay mechanics, polished user experiences, and
+              optimized game systems across multiple platforms.
+            </p>
+          </div>
+
+          <div className="glass rounded-2xl p-8 card-hover group">
+            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Code2 className="text-cyan-400" size={28} />
+            </div>
+            <h4 className="text-xl font-bold mb-3">Technical Design</h4>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Architecting robust systems, implementing efficient algorithms, and
+              optimizing performance for seamless experiences.
+            </p>
+          </div>
+
+          <div className="glass rounded-2xl p-8 card-hover group">
+            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <Sparkles className="text-pink-400" size={28} />
+            </div>
+            <h4 className="text-xl font-bold mb-3">Creative Innovation</h4>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Pushing boundaries with cutting-edge technology, experimental gameplay,
+              and unique visual experiences.
+            </p>
+          </div>
+        </div>
+
+        {/* Experience section */}
+        <div
+          ref={expRef}
+          className={`mb-24 reveal ${expInView ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.3s' }}
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 glass rounded-xl flex items-center justify-center glow-cyan">
+              <Briefcase className="text-cyan-400" size={24} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold">Work Experience</h3>
+              <p className="text-muted-foreground text-sm">My professional journey</p>
+            </div>
+          </div>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 via-cyan-500 to-pink-500 opacity-30" />
+
+            <div className="space-y-8">
+              {experience.map((exp, index) => (
+                <div
+                  key={index}
+                  className="relative pl-16 group"
+                  style={{ transitionDelay: `${index * 0.15}s` }}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-4 top-2 w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 border-4 border-background group-hover:scale-125 transition-transform" />
+
+                  <div className="glass rounded-2xl p-6 card-hover">
+                    <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                      <div>
+                        <h4 className="text-xl font-bold">{exp.title}</h4>
+                        <p className="text-purple-400">{exp.company}</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground px-3 py-1 glass rounded-full">
+                        {exp.period}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground mb-4">{exp.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-xs font-medium bg-white/5 rounded-full border border-white/10"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Education section */}
+        <div
+          ref={eduRef}
+          className={`reveal ${eduInView ? 'visible' : ''}`}
+          style={{ transitionDelay: '0.4s' }}
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 glass rounded-xl flex items-center justify-center glow-pink">
+              <GraduationCap className="text-pink-400" size={24} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold">Education</h3>
+              <p className="text-muted-foreground text-sm">Academic background</p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {education.map((edu, index) => (
+              <div key={index} className="glass rounded-2xl p-6 card-hover">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
+                    <Award className="text-pink-400" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg">{edu.degree}</h4>
+                    <p className="text-purple-400 text-sm mb-1">{edu.school}</p>
+                    <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
+                    <p className="text-muted-foreground text-sm">{edu.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

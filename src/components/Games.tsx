@@ -1,134 +1,199 @@
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Play, Gamepad2, Cpu, Music, Box } from "lucide-react";
+import { useParallax, useElementInView } from "@/hooks/use-parallax";
 
 const games = [
   {
     title: "Vector War",
-    description: "An intense multiplayer battle game featuring vector-based graphics and fast-paced action.",
+    description: "An intense multiplayer battle game featuring vector-based graphics and fast-paced action. Real-time combat with smooth mechanics.",
     tech: ["Web Technologies", "Real-time Multiplayer", "Vector Graphics"],
-    status: "Released",
+    status: "Playable",
     link: "https://vector-war-games.lovable.app/",
-    partNumber: "VW-001",
+    icon: Gamepad2,
+    gradient: "from-purple-500 to-pink-500",
+    bgGradient: "from-purple-500/10 to-pink-500/10",
   },
   {
     title: "Shadow Realms",
-    description: "Dark fantasy action RPG with intense combat mechanics and a deep narrative.",
+    description: "Dark fantasy action RPG with intense combat mechanics and a deep narrative. Explore mysterious dungeons and face challenging enemies.",
     tech: ["Unreal Engine", "C++", "AI Systems"],
-    status: "Released",
+    status: "Coming Soon",
     link: "#",
-    partNumber: "SR-002",
+    icon: Cpu,
+    gradient: "from-cyan-500 to-blue-500",
+    bgGradient: "from-cyan-500/10 to-blue-500/10",
   },
   {
     title: "Cyber Runner",
-    description: "Fast-paced cyberpunk endless runner with reactive music system.",
+    description: "Fast-paced cyberpunk endless runner with reactive music system. Navigate through neon-lit streets in this adrenaline-pumping experience.",
     tech: ["Unity", "Audio Middleware", "Shaders"],
-    status: "Released",
+    status: "Coming Soon",
     link: "#",
-    partNumber: "CR-003",
+    icon: Music,
+    gradient: "from-pink-500 to-orange-500",
+    bgGradient: "from-pink-500/10 to-orange-500/10",
   },
   {
     title: "Puzzle Dimension",
-    description: "Mind-bending puzzle game featuring impossible geometry and perspective-based mechanics.",
+    description: "Mind-bending puzzle game featuring impossible geometry and perspective-based mechanics. Challenge your perception of reality.",
     tech: ["Unity", "Custom Physics", "Level Editor"],
-    status: "Released",
+    status: "Coming Soon",
     link: "#",
-    partNumber: "PD-004",
+    icon: Box,
+    gradient: "from-green-500 to-cyan-500",
+    bgGradient: "from-green-500/10 to-cyan-500/10",
   },
 ];
 
 const Games = () => {
+  const parallaxOffset = useParallax(0.15);
+  const [headerRef, headerInView] = useElementInView(0.2);
+  const [gamesRef, gamesInView] = useElementInView(0.1);
+
   return (
-    <section id="games" className="py-20 px-4 bg-background">
-      <div className="container mx-auto max-w-6xl">
-        <div className="border-4 border-foreground p-4 bg-white mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight">
-            Product Catalog
+    <section id="games" className="relative py-32 px-4 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div
+        className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[150px]"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
+      />
+      <div
+        className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px]"
+        style={{ transform: `translateY(${-parallaxOffset}px)` }}
+      />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
+        {/* Section header */}
+        <div
+          ref={headerRef}
+          className={`text-center mb-16 reveal ${headerInView ? 'visible' : ''}`}
+        >
+          <span className="inline-block px-4 py-1 glass rounded-full text-sm text-cyan-400 mb-4">
+            Portfolio
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="gradient-text-alt">Featured</span>
+            <br />
+            <span className="text-foreground">Projects</span>
           </h2>
-          <p className="text-sm font-mono mt-2">Available Game Components | Assembly Required | Fun Guaranteed</p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {games.map((game, index) => (
-            <Card 
-              key={index}
-              className="border-2 border-foreground bg-white p-0 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] transition-all"
-            >
-              {/* Product header */}
-              <div className="border-b-2 border-foreground p-4 bg-muted flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 border-2 border-foreground flex items-center justify-center font-bold text-lg bg-white">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold uppercase">{game.title}</h3>
-                    <p className="text-xs font-mono">{game.partNumber}</p>
-                  </div>
-                </div>
-                <div className={`px-3 py-1 border-2 border-foreground text-xs font-bold ${
-                  game.status === "Released" 
-                    ? "bg-primary text-primary-foreground" 
-                    : "bg-secondary text-secondary-foreground"
-                }`}>
-                  {game.status}
-                </div>
-              </div>
-              
-              {/* Product illustration (simple diagram) */}
-              <div className="p-6 border-b-2 border-foreground">
-                <div className="bg-muted p-4 border-2 border-dashed border-foreground flex items-center justify-center h-24">
-                  <svg width="100" height="60" viewBox="0 0 100 60">
-                    {/* Simple game icon representation */}
-                    <rect x="10" y="10" width="80" height="40" fill="none" stroke="currentColor" strokeWidth="2" />
-                    <circle cx="30" cy="30" r="8" fill="none" stroke="currentColor" strokeWidth="2" />
-                    <polygon points="60,20 75,30 60,40" fill="none" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                </div>
-              </div>
-              
-              {/* Product description */}
-              <div className="p-4">
-                <p className="text-sm mb-4 leading-relaxed font-mono">
-                  {game.description}
-                </p>
-                
-                {/* Components included */}
-                <div className="mb-4">
-                  <p className="text-xs font-bold mb-2 uppercase">◆ Components Included:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {game.tech.map((tech, i) => (
-                      <span 
-                        key={tech}
-                        className="px-2 py-1 border border-foreground text-xs font-mono"
-                      >
-                        × {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Action button */}
-                <Button 
-                  variant="default"
-                  size="sm"
-                  className="w-full border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-bold uppercase"
-                  onClick={() => window.open(game.link, '_blank')}
-                  disabled={game.link === "#"}
-                >
-                  {game.link === "#" ? "⏰ Coming Soon" : "→ Play Game"} 
-                  {game.link !== "#" && <ExternalLink size={16} className="ml-2" />}
-                </Button>
-              </div>
-            </Card>
-          ))}
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            A collection of games and interactive experiences I've created.
+            Each project represents a unique challenge and creative solution.
+          </p>
         </div>
 
-        {/* Assembly note */}
-        <div className="mt-8 border-2 border-foreground bg-white p-4">
-          <p className="text-xs font-mono text-center">
-            <span className="font-bold">NOTE:</span> All games are fully assembled and ready to play. No additional tools required. 
-            Internet connection recommended for multiplayer features.
+        {/* Games grid */}
+        <div
+          ref={gamesRef}
+          className="grid md:grid-cols-2 gap-8"
+        >
+          {games.map((game, index) => {
+            const Icon = game.icon;
+            return (
+              <div
+                key={index}
+                className={`group relative reveal ${gamesInView ? 'visible' : ''}`}
+                style={{ transitionDelay: `${index * 0.15}s` }}
+              >
+                {/* Card glow effect */}
+                <div className={`absolute -inset-0.5 bg-gradient-to-r ${game.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur transition-all duration-500`} />
+
+                <div className="relative glass rounded-2xl overflow-hidden card-hover">
+                  {/* Header with icon */}
+                  <div className={`relative h-48 bg-gradient-to-br ${game.bgGradient} overflow-hidden`}>
+                    {/* Animated background pattern */}
+                    <div className="absolute inset-0 bg-grid opacity-20" />
+
+                    {/* Floating shapes */}
+                    <div className="absolute top-4 right-4 w-20 h-20 border border-white/10 rounded-full group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute bottom-4 left-4 w-12 h-12 border border-white/10 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-500" />
+
+                    {/* Icon */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${game.gradient} p-0.5 group-hover:scale-110 transition-transform duration-500`}>
+                        <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center">
+                          <Icon size={40} className="text-foreground" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Status badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
+                        game.status === "Playable"
+                          ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                          : "bg-white/10 text-white/70 border border-white/20"
+                      }`}>
+                        {game.status === "Playable" && (
+                          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                        )}
+                        {game.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-3 group-hover:gradient-text transition-all">
+                      {game.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
+                      {game.description}
+                    </p>
+
+                    {/* Tech tags */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {game.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 text-xs font-medium bg-white/5 rounded-full border border-white/10"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action button */}
+                    {game.link !== "#" ? (
+                      <Button
+                        className={`w-full bg-gradient-to-r ${game.gradient} hover:opacity-90 border-0 group/btn`}
+                        onClick={() => window.open(game.link, '_blank')}
+                      >
+                        <Play size={18} className="mr-2 group-hover/btn:scale-110 transition-transform" />
+                        Play Now
+                        <ExternalLink size={16} className="ml-2" />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        className="w-full glass border-white/10 hover:bg-white/5"
+                        disabled
+                      >
+                        Coming Soon
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className={`text-center mt-16 reveal ${gamesInView ? 'visible' : ''}`} style={{ transitionDelay: '0.6s' }}>
+          <p className="text-muted-foreground mb-6">
+            More projects in development. Stay tuned for updates!
           </p>
+          <Button
+            variant="outline"
+            size="lg"
+            className="glass hover:bg-white/10"
+            onClick={() => window.open('https://github.com', '_blank')}
+          >
+            View All Projects on GitHub
+            <ExternalLink size={16} className="ml-2" />
+          </Button>
         </div>
       </div>
     </section>

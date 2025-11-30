@@ -1,114 +1,188 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, User } from "lucide-react";
+import { ArrowDown, Gamepad2, Code2, Sparkles } from "lucide-react";
+import { useParallax, useMouseParallax } from "@/hooks/use-parallax";
 
 const Hero = () => {
+  const parallaxSlow = useParallax(0.3);
+  const parallaxMedium = useParallax(0.5);
+  const parallaxFast = useParallax(0.7);
+  const mouseParallax = useMouseParallax(0.02);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section 
+    <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Manual grid background */}
-      <div className="absolute inset-0 bg-manual-grid opacity-30" />
-      
-      <div className="relative z-10 container mx-auto px-4 text-center">
-        {/* Stick figure illustration */}
-        <div className="mb-8 flex justify-center">
-          <div className="relative">
-            {/* Stick figure */}
-            <svg width="120" height="180" viewBox="0 0 120 180" className="mx-auto">
-              {/* Head */}
-              <circle cx="60" cy="30" r="20" fill="none" stroke="currentColor" strokeWidth="3" />
-              {/* Body */}
-              <line x1="60" y1="50" x2="60" y2="100" stroke="currentColor" strokeWidth="3" />
-              {/* Arms */}
-              <line x1="60" y1="65" x2="35" y2="80" stroke="currentColor" strokeWidth="3" />
-              <line x1="60" y1="65" x2="85" y2="80" stroke="currentColor" strokeWidth="3" />
-              {/* Legs */}
-              <line x1="60" y1="100" x2="40" y2="140" stroke="currentColor" strokeWidth="3" />
-              <line x1="60" y1="100" x2="80" y2="140" stroke="currentColor" strokeWidth="3" />
-              {/* Computer */}
-              <rect x="75" y="75" width="30" height="20" fill="hsl(var(--primary))" stroke="currentColor" strokeWidth="2" />
-              <rect x="80" y="95" width="20" height="2" fill="currentColor" />
-            </svg>
-            
-            {/* Arrow pointing to person */}
-            <div className="absolute -left-20 top-8 flex items-center gap-2">
-              <span className="text-sm font-bold border-2 border-foreground px-2 py-1">1</span>
-              <svg width="40" height="20" viewBox="0 0 40 20">
-                <line x1="0" y1="10" x2="35" y2="10" stroke="currentColor" strokeWidth="2" />
-                <polygon points="35,10 30,7 30,13" fill="currentColor" />
-              </svg>
-            </div>
+      {/* Background layers with parallax */}
+
+      {/* Layer 1: Grid background */}
+      <div
+        className="absolute inset-0 bg-grid opacity-50"
+        style={{ transform: `translateY(${parallaxSlow}px)` }}
+      />
+
+      {/* Layer 2: Gradient orbs */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ transform: `translate(${mouseParallax.x}px, ${mouseParallax.y}px)` }}
+      >
+        {/* Purple orb */}
+        <div
+          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-purple-500/20 blur-[120px] morph"
+          style={{ transform: `translateY(${-parallaxMedium}px)` }}
+        />
+        {/* Cyan orb */}
+        <div
+          className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-cyan-500/20 blur-[100px] morph"
+          style={{
+            transform: `translateY(${-parallaxSlow}px)`,
+            animationDelay: '-4s'
+          }}
+        />
+        {/* Pink orb */}
+        <div
+          className="absolute top-1/2 right-1/3 w-[400px] h-[400px] rounded-full bg-pink-500/15 blur-[80px] morph"
+          style={{
+            transform: `translateY(${-parallaxFast}px)`,
+            animationDelay: '-2s'
+          }}
+        />
+      </div>
+
+      {/* Layer 3: Floating geometric shapes */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Floating rings */}
+        <div
+          className="absolute top-20 left-[10%] w-24 h-24 border-2 border-purple-500/30 rounded-full float"
+          style={{ transform: `translateY(${-parallaxFast}px)` }}
+        />
+        <div
+          className="absolute top-40 right-[15%] w-16 h-16 border-2 border-cyan-500/30 rounded-full float-delayed"
+          style={{ transform: `translateY(${-parallaxMedium}px)` }}
+        />
+        <div
+          className="absolute bottom-32 left-[20%] w-20 h-20 border-2 border-pink-500/30 rounded-full float-slow"
+          style={{ transform: `translateY(${-parallaxSlow}px)` }}
+        />
+
+        {/* Floating squares */}
+        <div
+          className="absolute top-1/3 left-[5%] w-12 h-12 border border-purple-500/20 rotate-45 float-delayed"
+          style={{ transform: `translateY(${-parallaxFast}px) rotate(45deg)` }}
+        />
+        <div
+          className="absolute bottom-1/3 right-[8%] w-8 h-8 border border-cyan-500/20 rotate-12 float"
+          style={{ transform: `translateY(${-parallaxMedium}px) rotate(12deg)` }}
+        />
+
+        {/* Dots */}
+        <div
+          className="absolute top-1/4 right-[25%] w-3 h-3 bg-purple-400/40 rounded-full float"
+          style={{ transform: `translateY(${-parallaxFast}px)` }}
+        />
+        <div
+          className="absolute bottom-1/4 left-[30%] w-2 h-2 bg-cyan-400/40 rounded-full float-delayed"
+          style={{ transform: `translateY(${-parallaxMedium}px)` }}
+        />
+        <div
+          className="absolute top-1/2 left-[8%] w-4 h-4 bg-pink-400/30 rounded-full float-slow"
+          style={{ transform: `translateY(${-parallaxSlow}px)` }}
+        />
+      </div>
+
+      {/* Layer 4: Rotating decoration ring */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none"
+        style={{ transform: `translate(-50%, -50%) translateY(${-parallaxSlow * 0.5}px)` }}
+      >
+        <div className="absolute inset-0 border border-white/5 rounded-full spin-slow" />
+        <div className="absolute inset-8 border border-white/5 rounded-full spin-reverse" />
+        <div className="absolute inset-16 border border-purple-500/10 rounded-full spin-slow" style={{ animationDuration: '30s' }} />
+      </div>
+
+      {/* Main content */}
+      <div
+        className="relative z-10 container mx-auto px-4 text-center"
+        style={{ transform: `translateY(${-parallaxMedium * 0.3}px)` }}
+      >
+        {/* Status badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 glow">
+          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          <span className="text-sm text-muted-foreground">Available for opportunities</span>
+        </div>
+
+        {/* Main title */}
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+          <span className="gradient-text">Tom Erland</span>
+          <br />
+          <span className="text-foreground">Husby</span>
+        </h1>
+
+        {/* Subtitle with icons */}
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-500" />
+          <p className="text-xl md:text-2xl text-muted-foreground font-light">
+            Game Developer & Creative Technologist
+          </p>
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-500" />
+        </div>
+
+        {/* Feature cards */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg">
+            <Gamepad2 size={18} className="text-purple-400" />
+            <span className="text-sm">Game Development</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg">
+            <Code2 size={18} className="text-cyan-400" />
+            <span className="text-sm">Unity & Unreal</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg">
+            <Sparkles size={18} className="text-pink-400" />
+            <span className="text-sm">Interactive Experiences</span>
           </div>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-6">
-          {/* Title with manual styling */}
-          <div className="border-4 border-foreground p-6 bg-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-2 tracking-tight uppercase">
-              Tom Erland Husby
-            </h1>
-            <p className="text-lg md:text-xl font-mono">
-              GAME DEVELOPER v2.0
-            </p>
-          </div>
+        {/* CTA buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button
+            size="lg"
+            onClick={() => scrollToSection("games")}
+            className="group relative bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border-0 px-8 py-6 text-lg glow transition-all duration-300 hover:scale-105"
+          >
+            <span className="relative z-10">View My Work</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => scrollToSection("contact")}
+            className="glass hover:bg-white/10 px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+          >
+            Get in Touch
+          </Button>
+        </div>
 
-          {/* Assembly instructions style */}
-          <div className="grid grid-cols-3 gap-4 mt-8">
-            <div className="border-2 border-foreground p-4 bg-card text-center">
-              <div className="w-12 h-12 border-2 border-foreground rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">
-                2
-              </div>
-              <p className="text-sm font-bold">VIEW PROJECTS</p>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll</span>
+          <button
+            onClick={() => scrollToSection("about")}
+            className="group cursor-pointer bg-transparent border-none"
+            aria-label="Scroll to next section"
+          >
+            <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-2">
+              <div className="w-1 h-2 bg-white/50 rounded-full animate-bounce" />
             </div>
-            
-            <div className="border-2 border-foreground p-4 bg-card text-center">
-              <div className="w-12 h-12 border-2 border-foreground rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">
-                3
-              </div>
-              <p className="text-sm font-bold">READ CV</p>
-            </div>
-            
-            <div className="border-2 border-foreground p-4 bg-card text-center">
-              <div className="w-12 h-12 border-2 border-foreground rounded-full flex items-center justify-center mx-auto mb-2 font-bold text-xl">
-                4
-              </div>
-              <p className="text-sm font-bold">CONTACT</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
-            <Button 
-              variant="default"
-              size="lg"
-              onClick={() => scrollToSection("games")}
-              className="border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-            >
-              → STEP 2
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => scrollToSection("contact")}
-              className="border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-            >
-              → STEP 4
-            </Button>
-          </div>
+          </button>
         </div>
       </div>
-      
-      <button 
-        onClick={() => scrollToSection("about")}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer bg-transparent border-none animate-bounce-manual"
-        aria-label="Scroll to next section"
-      >
-        <ArrowDown size={32} strokeWidth={3} />
-      </button>
+
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
