@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Play, Gamepad2, Cpu, Music, Box } from "lucide-react";
 import { useParallax, useElementInView } from "@/hooks/use-parallax";
+import TiltCard from "@/components/TiltCard";
+import MagneticButton from "@/components/MagneticButton";
 
 const games = [
   {
@@ -99,82 +101,85 @@ const Games = () => {
                 {/* Card glow effect */}
                 <div className={`absolute -inset-0.5 bg-gradient-to-r ${game.gradient} rounded-2xl opacity-0 group-hover:opacity-20 blur transition-all duration-500`} />
 
-                <div className="relative glass rounded-2xl overflow-hidden card-hover">
-                  {/* Header with icon */}
-                  <div className={`relative h-48 bg-gradient-to-br ${game.bgGradient} overflow-hidden`}>
-                    {/* Animated background pattern */}
-                    <div className="absolute inset-0 bg-grid opacity-20" />
+                <TiltCard intensity={8} glare={true}>
+                  <div className="relative glass rounded-2xl overflow-hidden">
+                    {/* Header with icon */}
+                    <div className={`relative h-48 bg-gradient-to-br ${game.bgGradient} overflow-hidden`}>
+                      {/* Animated background pattern */}
+                      <div className="absolute inset-0 bg-grid opacity-20" />
 
-                    {/* Floating shapes */}
-                    <div className="absolute top-4 right-4 w-20 h-20 border border-white/10 rounded-full group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute bottom-4 left-4 w-12 h-12 border border-white/10 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-500" />
+                      {/* Floating shapes */}
+                      <div className="absolute top-4 right-4 w-20 h-20 border border-white/10 rounded-full group-hover:scale-110 transition-transform duration-500" />
+                      <div className="absolute bottom-4 left-4 w-12 h-12 border border-white/10 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-500" />
 
-                    {/* Icon */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${game.gradient} p-0.5 group-hover:scale-110 transition-transform duration-500`}>
-                        <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center">
-                          <Icon size={40} className="text-foreground" />
+                      {/* Icon */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${game.gradient} p-0.5 group-hover:scale-110 transition-transform duration-500`}>
+                          <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center">
+                            <Icon size={40} className="text-foreground" />
+                          </div>
                         </div>
+                      </div>
+
+                      {/* Status badge */}
+                      <div className="absolute top-4 left-4">
+                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
+                          game.status === "Playable"
+                            ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                            : "bg-white/10 text-white/70 border border-white/20"
+                        }`}>
+                          {game.status === "Playable" && (
+                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                          )}
+                          {game.status}
+                        </span>
                       </div>
                     </div>
 
-                    {/* Status badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${
-                        game.status === "Playable"
-                          ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                          : "bg-white/10 text-white/70 border border-white/20"
-                      }`}>
-                        {game.status === "Playable" && (
-                          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                        )}
-                        {game.status}
-                      </span>
-                    </div>
-                  </div>
+                    {/* Content */}
+                    <div className="p-6">
+                      <h3 className="text-2xl font-bold mb-3 group-hover:gradient-text transition-all">
+                        {game.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
+                        {game.description}
+                      </p>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-3 group-hover:gradient-text transition-all">
-                      {game.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
-                      {game.description}
-                    </p>
+                      {/* Tech tags */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {game.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 text-xs font-medium bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
 
-                    {/* Tech tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {game.tech.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 text-xs font-medium bg-white/5 rounded-full border border-white/10"
+                      {/* Action button */}
+                      {game.link !== "#" ? (
+                        <MagneticButton
+                          className={`w-full bg-gradient-to-r ${game.gradient} hover:opacity-90 border-0`}
+                          onClick={() => window.open(game.link, '_blank')}
+                          strength={0.2}
                         >
-                          {tech}
-                        </span>
-                      ))}
+                          <Play size={18} className="mr-2" />
+                          Play Now
+                          <ExternalLink size={16} className="ml-2" />
+                        </MagneticButton>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          className="w-full glass border-white/10 hover:bg-white/5"
+                          disabled
+                        >
+                          Coming Soon
+                        </Button>
+                      )}
                     </div>
-
-                    {/* Action button */}
-                    {game.link !== "#" ? (
-                      <Button
-                        className={`w-full bg-gradient-to-r ${game.gradient} hover:opacity-90 border-0 group/btn`}
-                        onClick={() => window.open(game.link, '_blank')}
-                      >
-                        <Play size={18} className="mr-2 group-hover/btn:scale-110 transition-transform" />
-                        Play Now
-                        <ExternalLink size={16} className="ml-2" />
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="outline"
-                        className="w-full glass border-white/10 hover:bg-white/5"
-                        disabled
-                      >
-                        Coming Soon
-                      </Button>
-                    )}
                   </div>
-                </div>
+                </TiltCard>
               </div>
             );
           })}
@@ -185,15 +190,16 @@ const Games = () => {
           <p className="text-muted-foreground mb-6">
             More projects in development. Stay tuned for updates!
           </p>
-          <Button
+          <MagneticButton
             variant="outline"
             size="lg"
             className="glass hover:bg-white/10"
-            onClick={() => window.open('https://github.com', '_blank')}
+            onClick={() => window.open('https://github.com/Tombonator3000', '_blank')}
+            strength={0.3}
           >
             View All Projects on GitHub
             <ExternalLink size={16} className="ml-2" />
-          </Button>
+          </MagneticButton>
         </div>
       </div>
     </section>

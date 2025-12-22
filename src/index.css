@@ -337,6 +337,208 @@
   100% { background-position: 0% 50%; }
 }
 
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Wave animation for text */
+@keyframes wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-wave {
+  animation: wave 1s ease-in-out infinite;
+}
+
+/* Blink animation for cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Glitch effect animations */
+@keyframes glitch-1 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-3px, 3px); }
+  40% { transform: translate(-3px, -3px); }
+  60% { transform: translate(3px, 3px); }
+  80% { transform: translate(3px, -3px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(3px, -3px); }
+  40% { transform: translate(3px, 3px); }
+  60% { transform: translate(-3px, -3px); }
+  80% { transform: translate(-3px, 3px); }
+}
+
+@keyframes glitch-skew {
+  0%, 100% { transform: skew(0deg); }
+  20% { transform: skew(-2deg); }
+  40% { transform: skew(2deg); }
+  60% { transform: skew(-1deg); }
+  80% { transform: skew(1deg); }
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 0.3s infinite linear alternate-reverse;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 0.3s infinite linear alternate-reverse;
+}
+
+.clip-glitch-1 {
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.clip-glitch-2 {
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+/* Glitch text on hover */
+.glitch-hover {
+  position: relative;
+}
+
+.glitch-hover::before,
+.glitch-hover::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch-hover:hover::before {
+  animation: glitch-1 0.3s infinite;
+  color: #06b6d4;
+  opacity: 0.8;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-hover:hover::after {
+  animation: glitch-2 0.3s infinite;
+  color: #ec4899;
+  opacity: 0.8;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+/* Loading screen letter animation */
+@keyframes loading-letter {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+}
+
+.loading-letter {
+  animation: loading-letter 1.5s ease-in-out infinite;
+  background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Loading text shimmer */
+.loading-text {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted-foreground)),
+    hsl(var(--foreground)),
+    hsl(var(--muted-foreground))
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Spin animations for loading */
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 4s linear infinite;
+}
+
+/* Magnetic button glow */
+.magnetic-glow {
+  position: relative;
+}
+
+.magnetic-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #a855f7, #ec4899, #06b6d4);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+  filter: blur(10px);
+}
+
+.magnetic-glow:hover::before {
+  opacity: 0.5;
+}
+
+/* 3D Transform preserve */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Perspective container */
+.perspective {
+  perspective: 1000px;
+}
+
+/* Counter animation bounce */
+@keyframes counter-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.counter-animate {
+  animation: counter-bounce 0.3s ease-out;
+}
+
+/* Floating enhanced */
+@keyframes float-enhanced {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg) scale(1.02);
+  }
+  50% {
+    transform: translateY(-20px) rotate(0deg) scale(1);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-1deg) scale(1.02);
+  }
+}
+
+.float-enhanced {
+  animation: float-enhanced 6s ease-in-out infinite;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;

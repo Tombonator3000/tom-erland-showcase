@@ -1,6 +1,7 @@
-import { useRef, useEffect, useState } from "react";
 import { Code2, Gamepad2, Sparkles, Briefcase, GraduationCap, Award, Zap } from "lucide-react";
 import { useParallax, useElementInView } from "@/hooks/use-parallax";
+import { useAnimatedCounter } from "@/hooks/use-fancy-effects";
+import TiltCard from "@/components/TiltCard";
 
 const skills = [
   { name: "Unity", level: 95, color: "from-purple-500 to-pink-500" },
@@ -43,6 +44,35 @@ const education = [
     description: "Specialized in game programming and interactive design.",
   },
 ];
+
+// Animated skill bar component
+const AnimatedSkillBar = ({ skill, index, isVisible }: { skill: typeof skills[0]; index: number; isVisible: boolean }) => {
+  const { count, ref } = useAnimatedCounter(skill.level, 1500);
+
+  return (
+    <TiltCard intensity={8} glare={true}>
+      <div
+        ref={ref}
+        className="glass rounded-xl p-5 card-hover"
+        style={{ transitionDelay: `${index * 0.1}s` }}
+      >
+        <div className="flex justify-between items-center mb-3">
+          <span className="font-semibold">{skill.name}</span>
+          <span className="text-sm text-muted-foreground font-mono">{isVisible ? count : 0}%</span>
+        </div>
+        <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+          <div
+            className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000`}
+            style={{
+              width: isVisible ? `${skill.level}%` : '0%',
+              transitionDelay: `${index * 0.15}s`
+            }}
+          />
+        </div>
+      </div>
+    </TiltCard>
+  );
+};
 
 const About = () => {
   const parallaxOffset = useParallax(0.2);
@@ -103,63 +133,56 @@ const About = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {skills.map((skill, index) => (
-              <div
+              <AnimatedSkillBar
                 key={skill.name}
-                className="glass rounded-xl p-5 card-hover"
-                style={{ transitionDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <span className="font-semibold">{skill.name}</span>
-                  <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                </div>
-                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1000`}
-                    style={{
-                      width: skillsInView ? `${skill.level}%` : '0%',
-                      transitionDelay: `${index * 0.15}s`
-                    }}
-                  />
-                </div>
-              </div>
+                skill={skill}
+                index={index}
+                isVisible={skillsInView}
+              />
             ))}
           </div>
         </div>
 
         {/* Capabilities grid */}
         <div className={`grid md:grid-cols-3 gap-6 mb-24 stagger-children ${skillsInView ? 'visible' : ''}`}>
-          <div className="glass rounded-2xl p-8 card-hover group">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Gamepad2 className="text-purple-400" size={28} />
+          <TiltCard intensity={10}>
+            <div className="glass rounded-2xl p-8 card-hover group h-full">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Gamepad2 className="text-purple-400" size={28} />
+              </div>
+              <h4 className="text-xl font-bold mb-3">Game Development</h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Creating engaging gameplay mechanics, polished user experiences, and
+                optimized game systems across multiple platforms.
+              </p>
             </div>
-            <h4 className="text-xl font-bold mb-3">Game Development</h4>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Creating engaging gameplay mechanics, polished user experiences, and
-              optimized game systems across multiple platforms.
-            </p>
-          </div>
+          </TiltCard>
 
-          <div className="glass rounded-2xl p-8 card-hover group">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Code2 className="text-cyan-400" size={28} />
+          <TiltCard intensity={10}>
+            <div className="glass rounded-2xl p-8 card-hover group h-full">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Code2 className="text-cyan-400" size={28} />
+              </div>
+              <h4 className="text-xl font-bold mb-3">Technical Design</h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Architecting robust systems, implementing efficient algorithms, and
+                optimizing performance for seamless experiences.
+              </p>
             </div>
-            <h4 className="text-xl font-bold mb-3">Technical Design</h4>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Architecting robust systems, implementing efficient algorithms, and
-              optimizing performance for seamless experiences.
-            </p>
-          </div>
+          </TiltCard>
 
-          <div className="glass rounded-2xl p-8 card-hover group">
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Sparkles className="text-pink-400" size={28} />
+          <TiltCard intensity={10}>
+            <div className="glass rounded-2xl p-8 card-hover group h-full">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <Sparkles className="text-pink-400" size={28} />
+              </div>
+              <h4 className="text-xl font-bold mb-3">Creative Innovation</h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Pushing boundaries with cutting-edge technology, experimental gameplay,
+                and unique visual experiences.
+              </p>
             </div>
-            <h4 className="text-xl font-bold mb-3">Creative Innovation</h4>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              Pushing boundaries with cutting-edge technology, experimental gameplay,
-              and unique visual experiences.
-            </p>
-          </div>
+          </TiltCard>
         </div>
 
         {/* Experience section */}
@@ -192,28 +215,30 @@ const About = () => {
                   {/* Timeline dot */}
                   <div className="absolute left-4 top-2 w-5 h-5 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 border-4 border-background group-hover:scale-125 transition-transform" />
 
-                  <div className="glass rounded-2xl p-6 card-hover">
-                    <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                      <div>
-                        <h4 className="text-xl font-bold">{exp.title}</h4>
-                        <p className="text-purple-400">{exp.company}</p>
-                      </div>
-                      <span className="text-sm text-muted-foreground px-3 py-1 glass rounded-full">
-                        {exp.period}
-                      </span>
-                    </div>
-                    <p className="text-muted-foreground mb-4">{exp.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.tech.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 text-xs font-medium bg-white/5 rounded-full border border-white/10"
-                        >
-                          {tech}
+                  <TiltCard intensity={5}>
+                    <div className="glass rounded-2xl p-6 card-hover">
+                      <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                        <div>
+                          <h4 className="text-xl font-bold">{exp.title}</h4>
+                          <p className="text-purple-400">{exp.company}</p>
+                        </div>
+                        <span className="text-sm text-muted-foreground px-3 py-1 glass rounded-full">
+                          {exp.period}
                         </span>
-                      ))}
+                      </div>
+                      <p className="text-muted-foreground mb-4">{exp.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {exp.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 text-xs font-medium bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </TiltCard>
                 </div>
               ))}
             </div>
@@ -238,19 +263,21 @@ const About = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {education.map((edu, index) => (
-              <div key={index} className="glass rounded-2xl p-6 card-hover">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <Award className="text-pink-400" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg">{edu.degree}</h4>
-                    <p className="text-purple-400 text-sm mb-1">{edu.school}</p>
-                    <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
-                    <p className="text-muted-foreground text-sm">{edu.description}</p>
+              <TiltCard key={index} intensity={8}>
+                <div className="glass rounded-2xl p-6 card-hover h-full">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
+                      <Award className="text-pink-400" size={24} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg">{edu.degree}</h4>
+                      <p className="text-purple-400 text-sm mb-1">{edu.school}</p>
+                      <p className="text-muted-foreground text-sm mb-2">{edu.year}</p>
+                      <p className="text-muted-foreground text-sm">{edu.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </div>
