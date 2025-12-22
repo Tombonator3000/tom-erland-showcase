@@ -1,12 +1,30 @@
-import { Button } from "@/components/ui/button";
 import { ArrowDown, Gamepad2, Code2, Sparkles } from "lucide-react";
 import { useParallax, useMouseParallax } from "@/hooks/use-parallax";
+import { useTypingEffect } from "@/hooks/use-fancy-effects";
+import { GlitchText, TypingCursor } from "@/components/AnimatedText";
+import MagneticButton from "@/components/MagneticButton";
+import ParticleBackground from "@/components/ParticleBackground";
+import Marquee, { MarqueeItem } from "@/components/Marquee";
+
+const roles = [
+  "Game Developer",
+  "Creative Technologist",
+  "Unity Expert",
+  "Unreal Enthusiast",
+  "Interactive Designer",
+];
+
+const techStack = [
+  "Unity", "Unreal Engine", "C#", "C++", "React", "TypeScript",
+  "Blender", "Shader Programming", "Multiplayer", "AI Systems"
+];
 
 const Hero = () => {
   const parallaxSlow = useParallax(0.3);
   const parallaxMedium = useParallax(0.5);
   const parallaxFast = useParallax(0.7);
   const mouseParallax = useMouseParallax(0.02);
+  const { text: typedRole, isTyping } = useTypingEffect(roles, 80, 40, 2000);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -17,6 +35,9 @@ const Hero = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
+      {/* Particle background */}
+      <ParticleBackground particleCount={60} />
+
       {/* Background layers with parallax */}
 
       {/* Layer 1: Grid background */}
@@ -57,7 +78,7 @@ const Hero = () => {
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Floating rings */}
         <div
-          className="absolute top-20 left-[10%] w-24 h-24 border-2 border-purple-500/30 rounded-full float"
+          className="absolute top-20 left-[10%] w-24 h-24 border-2 border-purple-500/30 rounded-full float-enhanced"
           style={{ transform: `translateY(${-parallaxFast}px)` }}
         />
         <div
@@ -110,60 +131,61 @@ const Hero = () => {
         style={{ transform: `translateY(${-parallaxMedium * 0.3}px)` }}
       >
         {/* Status badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 glow">
+        <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 glow pulse-glow">
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
           <span className="text-sm text-muted-foreground">Available for opportunities</span>
         </div>
 
-        {/* Main title */}
+        {/* Main title with glitch effect */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-          <span className="gradient-text">Tom Erland</span>
+          <GlitchText text="Tom Erland" className="gradient-text" />
           <br />
           <span className="text-foreground">Husby</span>
         </h1>
 
-        {/* Subtitle with icons */}
+        {/* Subtitle with typing effect */}
         <div className="flex items-center justify-center gap-4 mb-8">
           <div className="h-px w-12 bg-gradient-to-r from-transparent to-purple-500" />
-          <p className="text-xl md:text-2xl text-muted-foreground font-light">
-            Game Developer & Creative Technologist
+          <p className="text-xl md:text-2xl text-muted-foreground font-light h-8">
+            {typedRole}
+            <TypingCursor className="ml-1" />
           </p>
           <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-500" />
         </div>
 
         {/* Feature cards */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg">
+          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:scale-105 transition-transform">
             <Gamepad2 size={18} className="text-purple-400" />
             <span className="text-sm">Game Development</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg">
+          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:scale-105 transition-transform">
             <Code2 size={18} className="text-cyan-400" />
             <span className="text-sm">Unity & Unreal</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg">
+          <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:scale-105 transition-transform">
             <Sparkles size={18} className="text-pink-400" />
             <span className="text-sm">Interactive Experiences</span>
           </div>
         </div>
 
-        {/* CTA buttons */}
+        {/* CTA buttons with magnetic effect */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button
-            size="lg"
+          <MagneticButton
             onClick={() => scrollToSection("games")}
-            className="group relative bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border-0 px-8 py-6 text-lg glow transition-all duration-300 hover:scale-105"
+            className="group relative bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border-0 px-8 py-6 text-lg glow transition-all duration-300"
+            strength={0.3}
           >
             <span className="relative z-10">View My Work</span>
-          </Button>
-          <Button
+          </MagneticButton>
+          <MagneticButton
             variant="outline"
-            size="lg"
             onClick={() => scrollToSection("contact")}
-            className="glass hover:bg-white/10 px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+            className="glass hover:bg-white/10 px-8 py-6 text-lg transition-all duration-300"
+            strength={0.3}
           >
             Get in Touch
-          </Button>
+          </MagneticButton>
         </div>
 
         {/* Scroll indicator */}
@@ -179,6 +201,18 @@ const Hero = () => {
             </div>
           </button>
         </div>
+      </div>
+
+      {/* Tech stack marquee */}
+      <div className="absolute bottom-24 left-0 right-0 z-10">
+        <Marquee speed={40} className="py-4">
+          {techStack.map((tech, index) => (
+            <MarqueeItem key={index} className="text-muted-foreground/50 text-sm font-medium">
+              <span className="w-2 h-2 bg-purple-500/50 rounded-full mr-3" />
+              {tech}
+            </MarqueeItem>
+          ))}
+        </Marquee>
       </div>
 
       {/* Bottom gradient fade */}

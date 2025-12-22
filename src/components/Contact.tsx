@@ -1,6 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Mail, Linkedin, Github, Twitter, Send, MapPin, Clock } from "lucide-react";
 import { useParallax, useElementInView } from "@/hooks/use-parallax";
+import TiltCard from "@/components/TiltCard";
+import MagneticButton from "@/components/MagneticButton";
 
 const contactMethods = [
   {
@@ -57,7 +58,7 @@ const Contact = () => {
       />
 
       {/* Decorative elements */}
-      <div className="absolute top-20 right-[10%] w-32 h-32 border border-purple-500/20 rounded-full float" />
+      <div className="absolute top-20 right-[10%] w-32 h-32 border border-purple-500/20 rounded-full float-enhanced" />
       <div className="absolute bottom-32 left-[5%] w-20 h-20 border border-cyan-500/20 rounded-lg rotate-45 float-delayed" />
 
       <div className="container mx-auto max-w-5xl relative z-10">
@@ -86,61 +87,63 @@ const Contact = () => {
             ref={formRef}
             className={`reveal ${formInView ? 'visible' : ''}`}
           >
-            <div className="glass rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
-              <form className="space-y-5">
-                <div className="grid sm:grid-cols-2 gap-4">
+            <TiltCard intensity={5}>
+              <div className="glass rounded-2xl p-8">
+                <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+                <form className="space-y-5">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-muted-foreground">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Your name"
+                        className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-muted-foreground">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="your@email.com"
+                        className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
+                      />
+                    </div>
+                  </div>
                   <div>
                     <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                      Name
+                      Subject
                     </label>
                     <input
                       type="text"
-                      placeholder="Your name"
+                      placeholder="What's this about?"
                       className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                      Email
+                      Message
                     </label>
-                    <input
-                      type="email"
-                      placeholder="your@email.com"
-                      className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
+                    <textarea
+                      rows={5}
+                      placeholder="Tell me about your project..."
+                      className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all resize-none"
                     />
                   </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="What's this about?"
-                    className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-muted-foreground">
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    placeholder="Tell me about your project..."
-                    className="w-full px-4 py-3 glass rounded-xl border border-white/10 bg-white/5 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all resize-none"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border-0 glow"
-                >
-                  <Send size={18} className="mr-2" />
-                  Send Message
-                </Button>
-              </form>
-            </div>
+                  <MagneticButton
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border-0 glow"
+                    strength={0.2}
+                  >
+                    <Send size={18} className="mr-2" />
+                    Send Message
+                  </MagneticButton>
+                </form>
+              </div>
+            </TiltCard>
           </div>
 
           {/* Contact info */}
@@ -150,26 +153,28 @@ const Contact = () => {
             style={{ transitionDelay: '0.2s' }}
           >
             {/* Quick info */}
-            <div className="glass rounded-2xl p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                  <Clock className="text-purple-400" size={24} />
+            <TiltCard intensity={5}>
+              <div className="glass rounded-2xl p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                    <Clock className="text-purple-400" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Response Time</h4>
+                    <p className="text-muted-foreground text-sm">Usually within 24-48 hours</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold">Response Time</h4>
-                  <p className="text-muted-foreground text-sm">Usually within 24-48 hours</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
+                    <MapPin className="text-cyan-400" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Location</h4>
+                    <p className="text-muted-foreground text-sm">Norway (Remote-friendly)</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
-                  <MapPin className="text-cyan-400" size={24} />
-                </div>
-                <div>
-                  <h4 className="font-semibold">Location</h4>
-                  <p className="text-muted-foreground text-sm">Norway (Remote-friendly)</p>
-                </div>
-              </div>
-            </div>
+            </TiltCard>
 
             {/* Contact methods */}
             <div className="space-y-4">
@@ -177,31 +182,32 @@ const Contact = () => {
               {contactMethods.map((method, index) => {
                 const Icon = method.icon;
                 return (
-                  <a
-                    key={method.name}
-                    href={method.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group block glass rounded-xl p-4 card-hover"
-                    style={{ transitionDelay: `${index * 0.1}s` }}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${method.gradient} p-0.5 group-hover:scale-110 transition-transform`}>
-                        <div className="w-full h-full rounded-xl bg-card flex items-center justify-center">
-                          <Icon size={20} />
+                  <TiltCard key={method.name} intensity={6}>
+                    <a
+                      href={method.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block glass rounded-xl p-4 card-hover"
+                      style={{ transitionDelay: `${index * 0.1}s` }}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${method.gradient} p-0.5 group-hover:scale-110 transition-transform`}>
+                          <div className="w-full h-full rounded-xl bg-card flex items-center justify-center">
+                            <Icon size={20} />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold group-hover:text-purple-400 transition-colors">
+                            {method.name}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">{method.description}</p>
+                        </div>
+                        <div className="text-muted-foreground text-sm hidden sm:block">
+                          {method.value}
                         </div>
                       </div>
-                      <div className="flex-1">
-                        <h4 className="font-semibold group-hover:text-purple-400 transition-colors">
-                          {method.name}
-                        </h4>
-                        <p className="text-sm text-muted-foreground">{method.description}</p>
-                      </div>
-                      <div className="text-muted-foreground text-sm hidden sm:block">
-                        {method.value}
-                      </div>
-                    </div>
-                  </a>
+                    </a>
+                  </TiltCard>
                 );
               })}
             </div>
@@ -224,7 +230,7 @@ const Contact = () => {
                     href={method.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors"
+                    className="w-10 h-10 glass rounded-lg flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all"
                   >
                     <Icon size={18} />
                   </a>
