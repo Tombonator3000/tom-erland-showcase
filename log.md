@@ -890,4 +890,145 @@ git push -u origin claude/add-game-links-RxQbd
 
 ---
 
+## 2025-12-31 - Sesjon 6: Lagt til State Shift Strategy Spillink
+
+### Oppgave
+Legge til link til "State Shift Strategy" spillet på GitHub Pages.
+
+### Problem Bakgrunn
+Games-komponenten hadde fire spill:
+- Vector War: Playable (GitHub Pages)
+- The Deep Ones: Playable (GitHub Pages)
+- 3044: Playable (GitHub Pages)
+- Puzzle Dimension: Coming Soon (placeholder)
+
+Bruker ønsket å legge til link til det faktiske spillet "State Shift Strategy" som er deployet på GitHub Pages.
+
+### Løsning Implementert ✅
+
+#### Oppdatert Games.tsx
+**Fil:** `src/components/Games.tsx`
+
+**Endringer:**
+
+**Puzzle Dimension → State Shift Strategy (linje 38-47):**
+- **Før:** `title: "Puzzle Dimension"`, `status: "Coming Soon"`, `link: "#"`
+- **Etter:** `title: "State Shift Strategy"`, `status: "Playable"`, `link: "https://tombonator3000.github.io/state-shift-strategy/"`
+- ✅ Endret navn til faktisk spill
+- ✅ Oppdatert til Playable status
+- ✅ Lagt til GitHub Pages link
+- ✅ Oppdatert tech tags til: `["Web Technologies", "Strategy", "Puzzle"]`
+- ✅ Oppdatert description til å reflektere strategispill med state management
+
+### Resultater
+
+✅ **Fire spillbare spill** nå tilgjengelig på showcase siden:
+- Vector War (GitHub Pages)
+- The Deep Ones (GitHub Pages)
+- 3044 (GitHub Pages)
+- State Shift Strategy (GitHub Pages)
+
+✅ **Alle spill har aktive linker** til GitHub Pages deployments
+
+✅ **100% spillbare prosjekter** - Ingen "Coming Soon" placeholders lenger!
+
+✅ **Status badges** alle viser "Playable" med grønn animert indikator
+
+### Git Operasjoner
+
+**Branch:** `claude/add-game-link-12IwA`
+
+**Commit:**
+```
+e793510 - Add State Shift Strategy game link
+```
+
+**Commit melding:**
+```
+Add State Shift Strategy game link
+
+- Updated Puzzle Dimension to State Shift Strategy
+- Changed status from Coming Soon to Playable
+- Added GitHub Pages link: tombonator3000.github.io/state-shift-strategy/
+- Updated tech tags to Web Technologies, Strategy, Puzzle
+- All four featured games now playable
+```
+
+**Push:**
+```bash
+git push -u origin claude/add-game-link-12IwA
+```
+✅ Suksessfullt pushet til remote
+
+### Neste Steg for Brukeren
+
+**For å aktivere endringene:**
+
+1. **Merge pull request:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/pull/new/claude/add-game-link-12IwA
+   - Opprett og merge PR til main branch
+
+2. **Etter merge:**
+   - GitHub Actions vil automatisk deploye oppdatert versjon
+   - Både Lovable og GitHub Pages vil vise nye spillinker
+   - Alle fire spill vil ha "Play Now" knapper
+
+3. **Verifiser:**
+   - Besøk: https://tombonator3000.github.io/tom-erland-showcase/
+   - Sjekk at alle fire spill har "Play Now" knapper
+   - Test at linkene fungerer til:
+     - https://tombonator3000.github.io/vector-war-games/
+     - https://tombonator3000.github.io/the-deep-ones/
+     - https://tombonator3000.github.io/3044/
+     - https://tombonator3000.github.io/state-shift-strategy/
+
+### Forventet Brukeropplevelse
+
+**Før:**
+- 3 spillbare spill
+- 1 "Coming Soon" placeholder
+
+**Etter:**
+- 4 spillbare spill med aktive linker
+- Alle deployed på GitHub Pages
+- Grønne "Playable" badges med animert indikator
+- Magnetic "Play Now" knapper med ikon
+- Komplett portfolio uten placeholders!
+
+### Teknisk Kontekst
+
+**Spilloversikt:**
+
+| Spill | Status | GitHub Pages URL |
+|-------|--------|------------------|
+| Vector War | Playable | tombonator3000.github.io/vector-war-games/ |
+| The Deep Ones | Playable | tombonator3000.github.io/the-deep-ones/ |
+| 3044 | Playable | tombonator3000.github.io/3044/ |
+| State Shift Strategy | Playable | tombonator3000.github.io/state-shift-strategy/ |
+
+**UI Komponenter:**
+- Games.tsx: Grid med 4 spillkort (2x2 layout)
+- TiltCard: 3D tilt effekt på alle kort
+- MagneticButton: "Play Now" knapper med magnetic effekt
+- Status badges: Alle viser grønn "Playable" badge
+
+### Endrede Filer
+- `src/components/Games.tsx` (OPPDATERT - State Shift Strategy link)
+- `log.md` (OPPDATERT - denne entry)
+
+### Status
+
+**Current State:**
+- ✅ Games.tsx oppdatert med State Shift Strategy
+- ✅ Commit gjennomført med beskrivende melding
+- ✅ Pushet til branch: `claude/add-game-link-12IwA`
+- ⏳ Venter på at bruker merger PR
+
+**After Merge:**
+- ✅ Showcase siden vil vise fire spillbare spill
+- ✅ Alle linker til GitHub Pages deployments
+- ✅ Komplett portfolio med 100% spillbare prosjekter
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
