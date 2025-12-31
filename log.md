@@ -735,4 +735,159 @@ Route match: path="/" (Index)
 
 ---
 
+## 2025-12-31 - Sesjon 5: Oppdaterte Spillinker til GitHub Pages
+
+### Oppgave
+Oppdatere Games-komponenten med linker til de faktiske spillene som er deployet på GitHub Pages.
+
+### Problem Bakgrunn
+Games-komponenten hadde:
+- Vector War: Linket til Lovable deployment
+- Shadow Realms: Coming Soon (placeholder)
+- Cyber Runner: Coming Soon (placeholder)
+- Puzzle Dimension: Coming Soon (placeholder)
+
+Målet var å oppdatere til faktiske spillinker på GitHub Pages.
+
+### Løsning Implementert ✅
+
+#### Oppdatert Games.tsx
+**Fil:** `src/components/Games.tsx`
+
+**Endringer:**
+
+1. **Vector War (linje 13):**
+   - **Før:** `link: "https://vector-war-games.lovable.app/"`
+   - **Etter:** `link: "https://tombonator3000.github.io/vector-war-games/"`
+   - ✅ Oppdatert til GitHub Pages deployment
+
+2. **Shadow Realms → The Deep Ones (linje 18-26):**
+   - **Før:** `title: "Shadow Realms"`, `status: "Coming Soon"`, `link: "#"`
+   - **Etter:** `title: "The Deep Ones"`, `status: "Playable"`, `link: "https://tombonator3000.github.io/the-deep-ones/"`
+   - ✅ Endret navn til faktisk spill
+   - ✅ Oppdatert til Playable status
+   - ✅ Lagt til GitHub Pages link
+   - ✅ Oppdatert tech tags til: `["Web Technologies", "Game Development", "Adventure"]`
+
+3. **Cyber Runner → 3044 (linje 28-36):**
+   - **Før:** `title: "Cyber Runner"`, `status: "Coming Soon"`, `link: "#"`
+   - **Etter:** `title: "3044"`, `status: "Playable"`, `link: "https://tombonator3000.github.io/3044/"`
+   - ✅ Endret navn til faktisk spill
+   - ✅ Oppdatert til Playable status
+   - ✅ Lagt til GitHub Pages link
+   - ✅ Oppdatert tech tags til: `["Web Technologies", "Futuristic", "Action"]`
+
+4. **Puzzle Dimension (linje 38-46):**
+   - ⏳ Beholdt som "Coming Soon"
+   - Ingen endringer
+
+### Resultater
+
+✅ **Tre spillbare spill** nå tilgjengelig på showcase siden:
+- Vector War (GitHub Pages)
+- The Deep Ones (GitHub Pages)
+- 3044 (GitHub Pages)
+
+✅ **Alle linker oppdatert** til GitHub Pages deployments
+
+✅ **Status badges** oppdatert til "Playable" med grønn animert indikator
+
+✅ **Tech tags** oppdatert til å reflektere web-teknologier
+
+### Git Operasjoner
+
+**Branch:** `claude/add-game-links-RxQbd`
+
+**Commit:**
+```
+00c5f58 - Update game links to GitHub Pages URLs
+```
+
+**Commit melding:**
+```
+Update game links to GitHub Pages URLs
+
+- Updated Vector War link to GitHub Pages version
+- Changed Shadow Realms to The Deep Ones with live link
+- Changed Cyber Runner to 3044 with live link
+- All three games now marked as Playable
+- Updated tech tags to reflect web technologies
+```
+
+**Push:**
+```bash
+git push -u origin claude/add-game-links-RxQbd
+```
+✅ Suksessfullt pushet til remote
+
+### Neste Steg for Brukeren
+
+**For å aktivere endringene:**
+
+1. **Merge pull request:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/pull/new/claude/add-game-links-RxQbd
+   - Opprett og merge PR til main branch
+
+2. **Etter merge:**
+   - GitHub Actions vil automatisk deploye oppdatert versjon
+   - Både Lovable og GitHub Pages vil vise nye spillinker
+   - Alle tre spill vil ha "Play Now" knapper
+
+3. **Verifiser:**
+   - Besøk: https://tombonator3000.github.io/tom-erland-showcase/
+   - Sjekk at alle tre spill har "Play Now" knapper
+   - Test at linkene fungerer til:
+     - https://tombonator3000.github.io/vector-war-games/
+     - https://tombonator3000.github.io/the-deep-ones/
+     - https://tombonator3000.github.io/3044/
+
+### Forventet Brukeropplevelse
+
+**Før:**
+- 1 spillbart spill (Vector War via Lovable)
+- 3 "Coming Soon" placeholders
+
+**Etter:**
+- 3 spillbare spill med aktive linker
+- Alle deployed på GitHub Pages
+- Grønne "Playable" badges med animert indikator
+- Magnetic "Play Now" knapper med ikon
+- 1 "Coming Soon" placeholder (Puzzle Dimension)
+
+### Teknisk Kontekst
+
+**Spilloversikt:**
+
+| Spill | Tidligere Status | Ny Status | GitHub Pages URL |
+|-------|-----------------|-----------|------------------|
+| Vector War | Playable (Lovable) | Playable (GitHub Pages) | tombonator3000.github.io/vector-war-games/ |
+| The Deep Ones | Coming Soon | Playable | tombonator3000.github.io/the-deep-ones/ |
+| 3044 | Coming Soon | Playable | tombonator3000.github.io/3044/ |
+| Puzzle Dimension | Coming Soon | Coming Soon | - |
+
+**UI Komponenter som påvirkes:**
+- Games.tsx: Hovedkomponent med spillgrid
+- TiltCard: 3D tilt effekt på spillkort
+- MagneticButton: "Play Now" knapper med magnetic effekt
+- Status badges: Grønn "Playable" vs. hvit "Coming Soon"
+
+### Endrede Filer
+- `src/components/Games.tsx` (OPPDATERT - game links og titler)
+- `log.md` (OPPDATERT - denne entry)
+
+### Status
+
+**Current State:**
+- ✅ Games.tsx oppdatert med nye linker
+- ✅ Commit gjennomført med beskrivende melding
+- ✅ Pushet til branch: `claude/add-game-links-RxQbd`
+- ⏳ Venter på at bruker merger PR
+
+**After Merge:**
+- ✅ Showcase siden vil vise tre spillbare spill
+- ✅ Alle linker til GitHub Pages deployments
+- ✅ Profesjonell portfolio med faktiske prosjekter
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
