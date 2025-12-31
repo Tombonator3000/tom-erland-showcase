@@ -62,12 +62,34 @@ This project is built with:
 
 ## How can I deploy this project?
 
+This project supports **two deployment methods**:
+
+### 1. Lovable (Primary)
 Simply open [Lovable](https://lovable.dev/projects/0535bc71-f2be-4267-b4ba-4dec0c86ac39) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+### 2. GitHub Pages (Backup/Alternative)
+The project is configured for automatic deployment to GitHub Pages:
+- **Live URL**: https://tombonator3000.github.io/tom-erland-showcase/
+- Automatically deploys when pushing to `main` or `master` branch
+- See `DEPLOYMENT.md` for detailed setup instructions
 
-Yes, you can!
+### Test GitHub Pages build locally
+```bash
+npm run build:github
+npm run preview:github
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Can I connect a custom domain?
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Yes, you can connect a custom domain to both platforms!
+
+**For Lovable:**
+Navigate to Project > Settings > Domains and click Connect Domain.
+Read more: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+**For GitHub Pages:**
+1. Add a `CNAME` file in the `public/` folder
+2. Configure DNS with your domain provider
+3. Enable HTTPS in GitHub Pages settings
+
+See `DEPLOYMENT.md` for complete deployment documentation.
