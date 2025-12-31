@@ -341,4 +341,145 @@ Men bruker må ha oversett dette og valgt "Deploy from a branch" istedenfor.
 
 ---
 
+## 2025-12-31 - Sesjon 3: Fikset Konkurrerende GitHub Workflows
+
+### Problem Rapportert
+Bruker rapporterte at GitHub Pages deployment fortsatt ikke fungerer.
+
+### Feilsøking Prosess
+
+#### Undersøkte Workflow Konfigurasjon
+```bash
+# Sjekket workflows folder
+ls -la .github/workflows/
+
+# Resultat: To workflows funnet!
+- deploy.yml (Vite/React workflow) ✅
+- jekyll-gh-pages.yml (Jekyll workflow) ❌
+```
+
+#### Root Cause Identifisert 🎯
+
+**Problemet:**
+To GitHub Actions workflows konkurrerte om samme deployment:
+
+1. **`deploy.yml`** (korrekt):
+   - Bygger React/Vite app med `npm run build:github`
+   - Setter base path til `/tom-erland-showcase/`
+   - Deployer fra `dist/` folder
+   - ✅ Dette er den KORREKTE workflowen
+
+2. **`jekyll-gh-pages.yml`** (feil):
+   - Prøver å bygge siden som en Jekyll site
+   - Jekyll forventer Markdown-basert statisk site
+   - Men dette er en React/Vite SPA!
+   - ❌ Dette er FEIL teknologi for prosjektet
+
+**Hvorfor dette skjedde:**
+- Begge workflows trigger på `push` til `main` branch
+- Begge har samme concurrency group: `"pages"`
+- Jekyll workflow ble trolig auto-generert av GitHub
+- Jekyll bygget feil output → 404 error
+
+**Analogi:**
+Det er som å ha to kokker som lager ulike oppskrifter samtidig med samme ingredienser. Den ene baker en kake (Vite), den andre prøver å lage sushi (Jekyll). Resultatet blir kaos!
+
+### Løsning Implementert ✅
+
+**Tiltak:**
+1. ✅ Slettet `.github/workflows/jekyll-gh-pages.yml`
+2. ✅ Beholdt kun `.github/workflows/deploy.yml` (Vite workflow)
+3. ✅ Committed endringer med forklarende melding
+4. ✅ Pushet til branch: `claude/fix-github-deployment-3loEv`
+
+**Commit:**
+```
+54d09e7 - Fix GitHub Pages deployment by removing conflicting Jekyll workflow
+```
+
+### Neste Steg for Brukeren
+
+**For å aktivere fiksen:**
+
+1. **Merge pull request:**
+   ```
+   https://github.com/Tombonator3000/tom-erland-showcase/pull/new/claude/fix-github-deployment-3loEv
+   ```
+
+2. **Etter merge til main:**
+   - GitHub Actions vil automatisk kjøre `deploy.yml` workflow
+   - Workflow bygger React app med korrekt base path
+   - Deployer til GitHub Pages
+
+3. **Verifiser deployment:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/actions
+   - Se at "Deploy to GitHub Pages" workflow kjører
+   - Vent 2-3 minutter til den er ferdig (grønn checkmark)
+   - Besøk: https://tombonator3000.github.io/tom-erland-showcase/
+
+4. **GitHub Pages Settings:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/settings/pages
+   - Verifiser at Source er satt til **"GitHub Actions"**
+   - (Hvis ikke, endre til "GitHub Actions" og save)
+
+### Forventet Resultat
+
+✅ GitHub Pages vil deploye korrekt bygd React/Vite app
+✅ Alle assets vil laste (JS bundles, CSS, bilder)
+✅ Base path `/tom-erland-showcase/` fungerer
+✅ Ingen 404 errors
+✅ Automatisk re-deployment ved push til main
+
+### Teknisk Forklaring
+
+**Forskjell mellom Jekyll og Vite:**
+
+| Aspekt | Jekyll | Vite (Dette prosjektet) |
+|--------|--------|-------------------------|
+| Type | Statisk site generator | SPA build tool |
+| Input | Markdown filer | React/TypeScript komponenter |
+| Output | HTML sider | Bundled JS/CSS + index.html |
+| Build process | Konverter Markdown → HTML | Transpile TS → JS + bundle |
+| Bruk | Blogs, dokumentasjon | Web apps, interaktive sites |
+
+**Hvorfor Jekyll ikke fungerte:**
+- Jekyll leter etter `_config.yml`, `_posts/`, Markdown filer
+- Fant React source code istedenfor
+- Bygget tom eller feil output
+- Resulterte i 404 eller blank side
+
+**Hvorfor Vite er korrekt:**
+- Transpilerer TypeScript til JavaScript
+- Bundler alle imports og dependencies
+- Minifiserer og optimaliserer assets
+- Injiserer korrekt base path i HTML/JS
+- Outputter production-ready SPA
+
+### Preventive Tiltak
+
+**For fremtiden:**
+- ⚠️ Ikke bruk GitHub's "Setup Pages" wizard som foreslår Jekyll
+- ✅ Bruk custom GitHub Actions workflow for React/Vite prosjekter
+- ✅ Sett Pages Source til "GitHub Actions" istedenfor "Deploy from branch"
+- 📖 Dokumenter korrekt workflow i DEPLOYMENT.md (allerede gjort)
+
+### Status
+
+**Current State:**
+- ✅ Conflicting Jekyll workflow slettet
+- ✅ Korrekt Vite workflow aktiv
+- ✅ Commit og push gjennomført
+- ⏳ Venter på at bruker merger PR til main
+
+**After Merge:**
+- ✅ Automatisk deployment til GitHub Pages
+- ✅ Site live på https://tombonator3000.github.io/tom-erland-showcase/
+- ✅ Dual hosting (Lovable + GitHub Pages) fungerer
+
+### Endrede Filer
+- `.github/workflows/jekyll-gh-pages.yml` (SLETTET)
+- `log.md` (OPPDATERT - denne entry)
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
