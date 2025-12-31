@@ -202,4 +202,143 @@ For å aktivere GitHub Pages deployment:
 
 ---
 
+## 2025-12-31 - Feilsøking: GitHub Pages Deployment
+
+### Problem Rapportert
+Bruker rapporterte at GitHub Pages viser "Oops! Page not found" (404) på https://tombonator3000.github.io/tom-erland-showcase/
+
+**Observasjoner fra screenshots:**
+1. ✅ GitHub Pages er aktivert og sier "Your site is live at..."
+2. ✅ Siste deployment vellykket av workflow "Deploy to GitHub Pages"
+3. ❌ Men siden viser 404 error
+
+### Feilsøking Prosess
+
+#### Steg 1: Undersøk Repository Struktur
+```bash
+# Sjekket branches
+git branch -a
+# Resultat: claude/fix-github-deployment-TV1H5, claude/improve-website-GAOQ1
+
+# Sjekket filer
+ls -la
+# Resultat: index.html i root, .github/workflows/deploy.yml finnes
+
+# Sjekket dist folder
+ls dist/
+# Resultat: Ingen dist folder i repo (korrekt - skal ikke committed)
+```
+
+#### Steg 2: Analysert Konfigurasjon Files
+**`.github/workflows/deploy.yml`:**
+- ✅ Konfigurert korrekt for GitHub Actions deployment
+- ✅ Bygger med `npm run build:github`
+- ✅ Uploader fra `./dist` folder
+- ✅ Bruker `actions/deploy-pages@v4`
+
+**`vite.config.ts`:**
+- ✅ Korrekt base path: `/tom-erland-showcase/` når `GITHUB_PAGES=true`
+- ✅ Fallback til `/` for lokal utvikling
+
+**`package.json`:**
+- ✅ Script `build:github` finnes og setter `GITHUB_PAGES=true`
+
+#### Steg 3: Identifisert Root Cause 🔍
+
+**Problemet:**
+GitHub Pages er konfigurert feil i repository settings!
+
+Fra screenshot:
+- **Source: Deploy from a branch**
+- **Branch: main / (root)**
+
+Men workflowen er designet for:
+- **Source: GitHub Actions**
+- Deployment fra bygd artifakt i `dist/`
+
+**Hva skjer:**
+1. Workflow kjører og bygger korrekt → lagrer artifakt
+2. MEN GitHub Pages ignorerer artifaktet
+3. GitHub Pages prøver å serve RAW kildekode fra main branch root
+4. `index.html` i root er ikke bygget av Vite → mangler assets, JS bundles, korrekt base path
+5. Resultat: 404 error
+
+**Analogi:**
+Det er som å gi noen ingredienser (rå kode) istedenfor ferdiglaget mat (bygd app). Workflowen lager maten, men GitHub Pages settings sier "gi dem ingrediensene direkte".
+
+### Løsning ✅
+
+**Trinn-for-trinn:**
+1. Gå til: https://github.com/Tombonator3000/tom-erland-showcase/settings/pages
+2. Under **"Build and deployment"**:
+   - **Source**: Endre fra "Deploy from a branch" til **"GitHub Actions"**
+3. Klikk **Save**
+4. Trigger ny deployment:
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/actions
+   - Velg workflow: "Deploy to GitHub Pages"
+   - Klikk **"Run workflow"** → "Run workflow"
+5. Vent 2-3 minutter mens workflowen bygger
+6. Sjekk at siden er live
+
+### Hvorfor Dette Skjedde
+
+GitHub Pages har to deployment modes:
+1. **Deploy from a branch**: Serve statiske filer direkte fra en branch/folder
+2. **GitHub Actions**: Bruk en workflow til å bygge og deploye
+
+Vår workflow er designet for mode #2, men settings var satt til mode #1.
+
+**DEPLOYMENT.md dokumentasjonen (linje 33-35) spesifiserte korrekt mode:**
+```markdown
+2. Under "Build and deployment":
+   - Source: **GitHub Actions**
+```
+
+Men bruker må ha oversett dette og valgt "Deploy from a branch" istedenfor.
+
+### Preventive Tiltak
+
+**Dokumentasjon:**
+- ✅ DEPLOYMENT.md inneholder allerede korrekte instruksjoner
+- ✅ README.md linker til DEPLOYMENT.md
+
+**Mulige Forbedringer:**
+- [ ] Legge til screenshot i DEPLOYMENT.md som viser korrekt setting
+- [ ] Legge til warning i README om vanlig feil
+- [ ] Vurdere å bruke branch deployment istedenfor Actions (enklere setup)
+
+### Status
+
+**Current State:**
+- ⚠️ Venter på at bruker endrer GitHub Pages source til "GitHub Actions"
+- ✅ All kode og workflow er korrekt konfigurert
+- ✅ Ingen kodeendringer nødvendig
+
+**After Fix:**
+- ✅ GitHub Pages vil serve bygd Vite app
+- ✅ Alle assets vil lastes korrekt
+- ✅ Base path `/tom-erland-showcase/` vil fungere
+- ✅ Automatisk deployment ved push til main
+
+### Teknisk Kontekst
+
+**Vite Build Process:**
+1. TypeScript → JavaScript transpilering
+2. Import resolution og bundling
+3. Asset optimization (minify, compress)
+4. Base path injection i HTML/JS
+5. Output: `dist/` folder med:
+   - `index.html` (transformert)
+   - `assets/*.js` (bundles)
+   - `assets/*.css` (styles)
+   - Kopieret `public/` filer
+
+**Hvorfor Raw index.html Ikke Fungerer:**
+- Inneholder Vite-spesifikke import statements (`import ... from ...`)
+- Browser kan ikke forstå TypeScript/JSX
+- Asset paths er ikke resolved
+- Base path er ikke injected
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
