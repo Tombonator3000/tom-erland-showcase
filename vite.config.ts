@@ -9,6 +9,8 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  // GitHub Pages deployment base path
+  base: process.env.GITHUB_PAGES === 'true' ? '/tom-erland-showcase/' : '/',
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
