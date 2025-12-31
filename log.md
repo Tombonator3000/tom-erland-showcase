@@ -482,4 +482,257 @@ Det er som å ha to kokker som lager ulike oppskrifter samtidig med samme ingred
 
 ---
 
+## 2025-12-31 - Sesjon 4: Fikset React Router Basename & Jekyll Prosessering
+
+### Problem Rapportert
+Bruker rapporterte at GitHub Pages deployment fortsatt viser "Oops! Page not found" (404 error), selv etter at Jekyll workflow ble fjernet.
+
+**Observasjoner:**
+- ✅ GitHub Actions workflow kjører suksessfullt
+- ✅ GitHub Pages er konfigurert med "Source: GitHub Actions"
+- ✅ Ingen feilmeldinger i workflow logs
+- ❌ Men siden viser fortsatt 404 ved besøk
+
+### Feilsøking Prosess
+
+#### Steg 1: Testet Lokal Bygging
+```bash
+npm install
+npm run build:github
+```
+
+**Resultat:**
+- ✅ Bygget suksessfullt uten feil
+- ✅ Genererte `dist/` folder med alle assets
+- ✅ Base path `/tom-erland-showcase/` korrekt injected i HTML
+
+#### Steg 2: Analyserte Bygd Output
+**Sjekket `dist/index.html`:**
+```html
+<script type="module" crossorigin src="/tom-erland-showcase/assets/index-Dcxf7hSY.js"></script>
+<link rel="stylesheet" crossorigin href="/tom-erland-showcase/assets/index-W7_2WOwX.css">
+```
+✅ Base path korrekt!
+
+**Sjekket `dist/` innhold:**
+```
+dist/
+├── assets/
+│   ├── index-Dcxf7hSY.js
+│   └── index-W7_2WOwX.css
+├── favicon.ico
+├── index.html
+├── placeholder.svg
+└── robots.txt
+```
+✅ Alle filer generert!
+
+#### Steg 3: Identifiserte Root Causes 🎯
+
+**Problem 1: Mangler `.nojekyll` Fil**
+
+GitHub Pages prøver å prosessere filer med Jekyll som standard, selv når man bruker GitHub Actions deployment. Uten en `.nojekyll` fil kan:
+- Filer/mapper som starter med `_` bli ignorert
+- SPA routing bli forstyrret
+- Assets ikke bli servert korrekt
+
+**Problem 2: React Router Mangler Basename**
+
+I `src/App.tsx` (linje 16):
+```tsx
+<BrowserRouter>  // ❌ Ingen basename!
+```
+
+**Hva skjer:**
+1. Bruker besøker: `https://tombonator3000.github.io/tom-erland-showcase/`
+2. Vite har bygget med base path: `/tom-erland-showcase/`
+3. HTML/CSS/JS lastes korrekt pga. Vite base path
+4. Men React Router tror den er på root path: `/`
+5. React Router ser `/tom-erland-showcase/` som ukjent route
+6. Matcher catch-all route: `<Route path="*" element={<NotFound />} />`
+7. Resultat: "Oops! Page not found" component vises!
+
+**Analogi:**
+Det er som å gi noen en adresse "Baker Street 221B, London", men GPS-en er satt til Norge. De finner bygningen (assets laster), men når de går inn tror de de er på feil sted (routing feiler).
+
+### Løsning Implementert ✅
+
+#### Fix 1: Lagt til `.nojekyll` Fil
+**Fil:** `public/.nojekyll` (tom fil)
+
+Dette forteller GitHub Pages: "Ikke prosesser denne siten med Jekyll!"
+
+Vite kopierer automatisk alt fra `public/` til `dist/` under bygging.
+
+#### Fix 2: Konfigurert React Router Basename
+**Fil:** `src/App.tsx`
+
+**Før:**
+```tsx
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>  // ❌ Ingen basename
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+```
+
+**Etter:**
+```tsx
+const App = () => {
+  // Use base path for GitHub Pages, root for local/Lovable
+  const basename = import.meta.env.BASE_URL;
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter basename={basename}>  // ✅ Basename fra Vite!
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
+```
+
+**Hvordan det fungerer:**
+- `import.meta.env.BASE_URL` henter base path fra Vite config
+- Lovable/Local: `BASE_URL = "/"` (rot)
+- GitHub Pages: `BASE_URL = "/tom-erland-showcase/"` (repo navn)
+- React Router bruker basename til å matche routes korrekt
+
+### Verifisering av Løsning
+
+#### Test 1: GitHub Pages Build
+```bash
+rm -rf dist && npm run build:github
+```
+**Resultat:**
+- ✅ Bygget suksessfullt
+- ✅ `.nojekyll` fil kopiert til `dist/`
+- ✅ Basename injected i JS bundle
+
+#### Test 2: Lovable/Local Build
+```bash
+npm run build
+```
+**Resultat:**
+- ✅ Bygget suksessfullt
+- ✅ Ingen breaking changes for Lovable deployment
+- ✅ Basename = "/" for lokal kjøring
+
+### Neste Steg for Brukeren
+
+**For å aktivere fiksen:**
+
+1. **Commit og push er allerede gjort til branch:** `claude/fix-github-deployment-31kY4`
+
+2. **Merge pull request:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/pulls
+   - Find PR fra branch `claude/fix-github-deployment-31kY4`
+   - Klikk "Merge pull request"
+   - Bekreft merge
+
+3. **Etter merge til main:**
+   - GitHub Actions vil automatisk kjøre workflow
+   - Workflow bygger React app med korrekt basename
+   - Deployer til GitHub Pages med `.nojekyll`
+
+4. **Verifiser deployment (etter 2-3 minutter):**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/actions
+   - Se at "Deploy to GitHub Pages" workflow er grønn
+   - Besøk: https://tombonator3000.github.io/tom-erland-showcase/
+   - Sjekk at siden lastes UTEN 404 error!
+
+### Forventet Resultat
+
+✅ **Homepage laster korrekt** - Ingen 404 error
+✅ **Alle assets laster** - JS, CSS, bilder fungerer
+✅ **React Router fungerer** - Navigation mellom sider
+✅ **Parallax effekter aktive** - Smooth scrolling
+✅ **Interaktive features** - Magnetic buttons, tilt cards
+✅ **Dual hosting fungerer** - Både Lovable OG GitHub Pages
+
+### Teknisk Forklaring
+
+#### Hvorfor Basename er Kritisk for SPA på GitHub Pages
+
+**GitHub Pages URL struktur:**
+- User/org site: `username.github.io/` → base path = `/`
+- Project site: `username.github.io/repo-name/` → base path = `/repo-name/`
+
+**React Router uten basename:**
+```
+URL: /tom-erland-showcase/
+Router ser: / (rot)
+Route match: path="*" (NotFound)
+```
+
+**React Router MED basename:**
+```
+URL: /tom-erland-showcase/
+Basename: /tom-erland-showcase/
+Router ser: / (relativ til basename)
+Route match: path="/" (Index)
+```
+
+#### import.meta.env.BASE_URL Fordeler
+
+**1. Automatisk synkronisering:**
+- Vite setter `BASE_URL` basert på `vite.config.ts` → `base` property
+- React Router bruker samme verdi
+- Ingen hard-coding eller duplikasjon
+
+**2. Environment-aware:**
+- Development: `BASE_URL = "/"` (Vite dev server)
+- Production (Lovable): `BASE_URL = "/"` (custom domain)
+- Production (GitHub Pages): `BASE_URL = "/tom-erland-showcase/"` (via `GITHUB_PAGES=true`)
+
+**3. Maintainability:**
+- Én kilde til sannhet: `vite.config.ts`
+- Endre base path på ett sted, funker overalt
+
+### Status
+
+**Current State:**
+- ✅ `.nojekyll` fil lagt til
+- ✅ React Router basename konfigurert
+- ✅ Begge builds testet og fungerer
+- ✅ Commit og push gjennomført
+- ⏳ Venter på at bruker merger PR til main
+
+**After Merge:**
+- ✅ Automatisk deployment til GitHub Pages
+- ✅ Site live UTEN 404 errors!
+- ✅ Dual hosting (Lovable + GitHub Pages) fullstendig funksjonell
+
+### Endrede Filer
+- `public/.nojekyll` (NY - tom fil for å disable Jekyll)
+- `src/App.tsx` (OPPDATERT - lagt til basename på BrowserRouter)
+- `log.md` (OPPDATERT - denne entry)
+
+### Lærdommer
+
+**For SPA deployment til GitHub Pages:**
+1. ✅ ALLTID legg til `.nojekyll` fil i `public/`
+2. ✅ ALLTID konfigurer React Router med basename
+3. ✅ BRUK `import.meta.env.BASE_URL` for konsistens
+4. ✅ TEST både GitHub Pages og lokal build
+5. ✅ DOKUMENTER base path konfigurasjon
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
