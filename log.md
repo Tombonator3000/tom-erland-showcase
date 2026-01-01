@@ -1230,4 +1230,200 @@ git push -u origin claude/add-game-link-5UVde
 
 ---
 
+## 2026-01-01 - Sesjon 8: Lagt til Deep Regrets Digital Spillink
+
+### Oppgave
+Legge til link til "Deep Regrets Digital" spillet på GitHub Pages.
+
+### Problem Bakgrunn
+Games-komponenten hadde fem spillbare spill:
+- Vector War: Playable (GitHub Pages)
+- The Deep Ones: Playable (GitHub Pages)
+- 3044: Playable (GitHub Pages)
+- State Shift Strategy: Playable (GitHub Pages)
+- Conspiracy Canvas: Playable (GitHub Pages)
+
+Bruker fortsetter utviklingen og ønsket å legge til link til det sjette spillet "Deep Regrets Digital" som er deployet på GitHub Pages.
+
+### Løsning Implementert ✅
+
+#### Oppdatert Games.tsx
+**Fil:** `src/components/Games.tsx`
+
+**Endringer:**
+
+1. **Import av nytt ikon (linje 2):**
+   - Lagt til `Heart` ikon fra lucide-react
+   - Passer perfekt for emosjonelt/narrativt tema
+
+2. **Lagt til nytt spill i games array (linje 58-67):**
+   - **Title:** "Deep Regrets Digital"
+   - **Description:** "An emotional narrative experience exploring the weight of choices and their consequences. Navigate through a story-driven journey where every decision shapes your path."
+   - **Tech tags:** `["Web Technologies", "Narrative", "Atmospheric"]`
+   - **Status:** `"Playable"`
+   - **Link:** `"https://tombonator3000.github.io/deep-regrets-digital/"`
+   - **Icon:** `Heart` (symboliserer emosjonell dybde)
+   - **Gradient:** `"from-indigo-500 to-violet-500"` (dype, kalde toner som passer til "regrets" temaet)
+   - **bgGradient:** `"from-indigo-500/10 to-violet-500/10"`
+
+### Resultater
+
+✅ **Seks spillbare spill** nå tilgjengelig på showcase siden:
+- Vector War (GitHub Pages)
+- The Deep Ones (GitHub Pages)
+- 3044 (GitHub Pages)
+- State Shift Strategy (GitHub Pages)
+- Conspiracy Canvas (GitHub Pages)
+- Deep Regrets Digital (GitHub Pages) ⭐ NYtt!
+
+✅ **Alle spill har aktive linker** til GitHub Pages deployments
+
+✅ **100% spillbare prosjekter** - Ingen "Coming Soon" placeholders!
+
+✅ **Status badges** alle viser "Playable" med grønn animert indikator
+
+✅ **Unikt visuelt uttrykk** med indigo-to-violet gradient og Heart ikon
+
+### Design Valg
+
+**Hvorfor Heart ikon?**
+- Symboliserer emosjonell dybde og narrativ
+- Passer perfekt til "Deep Regrets" tema med vekt på valg og konsekvenser
+- Visuelt distinkt fra de andre spillenes ikoner (Gamepad2, Cpu, Music, Box, Network)
+
+**Hvorfor indigo-to-violet gradient?**
+- Dype, kalde toner som reflekterer melankoli og refleksjon
+- Assosiert med følelser, introspeksjon, og dybde
+- Ubrukt fargekombinasjon i eksisterende spill
+- Komplementerer "narrative/atmospheric" temaet
+
+**Tech tags valg:**
+- "Web Technologies" - konsistent med alle spill
+- "Narrative" - reflekterer story-driven gameplay
+- "Atmospheric" - indikerer stemningsfull, immersiv opplevelse
+
+### Git Operasjoner
+
+**Branch:** `claude/add-game-link-cB9hU`
+
+**Commit:**
+```
+Add Deep Regrets Digital game link
+
+- Added Deep Regrets Digital as sixth playable game
+- New link: https://tombonator3000.github.io/deep-regrets-digital/
+- Status: Playable
+- Tech tags: Web Technologies, Narrative, Atmospheric
+- Icon: Heart (fitting for emotional/narrative theme)
+- Gradient: indigo-500 to violet-500
+- All six games now playable on GitHub Pages
+```
+
+**Push:**
+```bash
+git push -u origin claude/add-game-link-cB9hU
+```
+
+### Neste Steg for Brukeren
+
+**For å aktivere endringene:**
+
+1. **Merge pull request:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/pull/new/claude/add-game-link-cB9hU
+   - Opprett og merge PR til main branch
+
+2. **Etter merge:**
+   - GitHub Actions vil automatisk deploye oppdatert versjon
+   - Både Lovable og GitHub Pages vil vise nye spillinker
+   - Alle seks spill vil ha "Play Now" knapper
+
+3. **Verifiser:**
+   - Besøk: https://tombonator3000.github.io/tom-erland-showcase/
+   - Sjekk at alle seks spill har "Play Now" knapper
+   - Test at linkene fungerer til:
+     - https://tombonator3000.github.io/vector-war-games/
+     - https://tombonator3000.github.io/the-deep-ones/
+     - https://tombonator3000.github.io/3044/
+     - https://tombonator3000.github.io/state-shift-strategy/
+     - https://tombonator3000.github.io/conspiracy-canvas/
+     - https://tombonator3000.github.io/deep-regrets-digital/ ⭐
+
+### Forventet Brukeropplevelse
+
+**Før:**
+- 5 spillbare spill med aktive linker
+- Grid layout: Fleksibelt responsive grid (md:grid-cols-2)
+
+**Etter:**
+- 6 spillbare spill med aktive linker
+- Grid layout: Fleksibelt responsive grid (md:grid-cols-2)
+- Alle deployed på GitHub Pages
+- Grønne "Playable" badges med animert indikator
+- Magnetic "Play Now" knapper med ikon
+- Utvidet portfolio med enda mer innhold!
+
+### Teknisk Kontekst
+
+**Spilloversikt:**
+
+| Spill | Status | GitHub Pages URL | Gradient | Ikon |
+|-------|--------|------------------|----------|------|
+| Vector War | Playable | tombonator3000.github.io/vector-war-games/ | purple→pink | Gamepad2 |
+| The Deep Ones | Playable | tombonator3000.github.io/the-deep-ones/ | cyan→blue | Cpu |
+| 3044 | Playable | tombonator3000.github.io/3044/ | pink→orange | Music |
+| State Shift Strategy | Playable | tombonator3000.github.io/state-shift-strategy/ | green→cyan | Box |
+| Conspiracy Canvas | Playable | tombonator3000.github.io/conspiracy-canvas/ | amber→red | Network |
+| **Deep Regrets Digital** | **Playable** | **tombonator3000.github.io/deep-regrets-digital/** | **indigo→violet** | **Heart** |
+
+**UI Layout:**
+- Responsive grid: `md:grid-cols-2` (2 kolonner på medium+ skjermer)
+- Med 6 kort: tre rader med 2 kort hver på desktop
+- Mobil: 1 kolonne (vertikal stabling)
+- Desktop: 2 kolonner (jevn distribusjon)
+
+**UI Komponenter:**
+- Games.tsx: Grid med 6 spillkort
+- TiltCard: 3D tilt effekt på alle kort
+- MagneticButton: "Play Now" knapper med magnetic effekt
+- Status badges: Alle viser grønn "Playable" badge
+- Parallax background orbs: Smooth scroll effekt
+
+### Endrede Filer
+- `src/components/Games.tsx` (OPPDATERT - Deep Regrets Digital link og Heart ikon import)
+- `log.md` (OPPDATERT - denne entry)
+
+### Status
+
+**Current State:**
+- ✅ Games.tsx oppdatert med Deep Regrets Digital
+- ✅ Heart ikon importert
+- ⏳ Venter på commit og push
+
+**After Commit & Push:**
+- ✅ Showcase siden vil vise seks spillbare spill
+- ✅ Alle linker til GitHub Pages deployments
+- ✅ Utvidet portfolio med 6 unike prosjekter
+- ✅ Profesjonell presentasjon av spillportefølje
+
+### Lærdommer og Observasjoner
+
+**Konsistent Design Pattern:**
+- Alle spill følger samme struktur og format
+- Unike gradienter og ikoner for visuell variasjon
+- Konsistent teknologi tagging ("Web Technologies" + 2 unike tags)
+- Standardisert "Playable" status med animert badge
+
+**Skalerbarhet:**
+- Enkel å legge til flere spill ved å utvide games array
+- Grid layout tilpasser seg automatisk til flere kort
+- Kan enkelt legge til flere spill i fremtiden ved å følge samme mønster
+
+**Portfolio Utvikling:**
+- Fra 1 spill i sesjon 5 → 6 spill i sesjon 8
+- Konsistent evolusjon og vekst av portfolio
+- Profesjonell fremstilling av spillutviklingskompetanse
+- Variasjon i temaer: Action, Adventure, Mystery, Strategy, Narrative
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Play, Gamepad2, Cpu, Music, Box, Network } from "lucide-react";
+import { ExternalLink, Play, Gamepad2, Cpu, Music, Box, Network, Heart } from "lucide-react";
 import { useParallax, useElementInView } from "@/hooks/use-parallax";
 import TiltCard from "@/components/TiltCard";
 import MagneticButton from "@/components/MagneticButton";
@@ -54,6 +54,16 @@ const games = [
     icon: Network,
     gradient: "from-amber-500 to-red-500",
     bgGradient: "from-amber-500/10 to-red-500/10",
+  },
+  {
+    title: "Deep Regrets Digital",
+    description: "An emotional narrative experience exploring the weight of choices and their consequences. Navigate through a story-driven journey where every decision shapes your path.",
+    tech: ["Web Technologies", "Narrative", "Atmospheric"],
+    status: "Playable",
+    link: "https://tombonator3000.github.io/deep-regrets-digital/",
+    icon: Heart,
+    gradient: "from-indigo-500 to-violet-500",
+    bgGradient: "from-indigo-500/10 to-violet-500/10",
   },
 ];
 
