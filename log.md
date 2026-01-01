@@ -1031,4 +1031,203 @@ git push -u origin claude/add-game-link-12IwA
 
 ---
 
+## 2026-01-01 - Sesjon 7: Lagt til Conspiracy Canvas Spillink
+
+### Oppgave
+Legge til link til "Conspiracy Canvas" spillet på GitHub Pages.
+
+### Problem Bakgrunn
+Games-komponenten hadde fire spillbare spill:
+- Vector War: Playable (GitHub Pages)
+- The Deep Ones: Playable (GitHub Pages)
+- 3044: Playable (GitHub Pages)
+- State Shift Strategy: Playable (GitHub Pages)
+
+Bruker ønsket å legge til link til det femte spillet "Conspiracy Canvas" som er deployet på GitHub Pages.
+
+### Løsning Implementert ✅
+
+#### Oppdatert Games.tsx
+**Fil:** `src/components/Games.tsx`
+
+**Endringer:**
+
+1. **Import av nytt ikon (linje 2):**
+   - Lagt til `Network` ikon fra lucide-react
+   - Passer godt for conspiracy/connection tema
+
+2. **Lagt til nytt spill i games array (linje 48-57):**
+   - **Title:** "Conspiracy Canvas"
+   - **Description:** "Connect the dots and uncover hidden conspiracies. Build your web of evidence by linking clues and revealing the truth behind mysterious events."
+   - **Tech tags:** `["Web Technologies", "Mystery", "Detective"]`
+   - **Status:** `"Playable"`
+   - **Link:** `"https://tombonator3000.github.io/conspiracy-canvas/"`
+   - **Icon:** `Network` (symboliserer nettverk/connections)
+   - **Gradient:** `"from-amber-500 to-red-500"` (varme farger som skiller seg fra eksisterende spill)
+   - **bgGradient:** `"from-amber-500/10 to-red-500/10"`
+
+### Resultater
+
+✅ **Fem spillbare spill** nå tilgjengelig på showcase siden:
+- Vector War (GitHub Pages)
+- The Deep Ones (GitHub Pages)
+- 3044 (GitHub Pages)
+- State Shift Strategy (GitHub Pages)
+- Conspiracy Canvas (GitHub Pages) ⭐ NYtt!
+
+✅ **Alle spill har aktive linker** til GitHub Pages deployments
+
+✅ **100% spillbare prosjekter** - Ingen "Coming Soon" placeholders!
+
+✅ **Status badges** alle viser "Playable" med grønn animert indikator
+
+✅ **Unikt visuelt uttrykk** med amber-to-red gradient og Network ikon
+
+### Design Valg
+
+**Hvorfor Network ikon?**
+- Symboliserer koblinger og sammenhenger
+- Passer perfekt til "conspiracy" tema hvor man kobler sammen hint
+- Visuelt distinkt fra de andre spillenes ikoner (Gamepad2, Cpu, Music, Box)
+
+**Hvorfor amber-to-red gradient?**
+- Varme farger som skaper energi og spenning
+- Assosiert med oppdagelse, advarsel, mysterium
+- Ubrukt fargekombinasjon i eksisterende spill
+- Komplementerer "mystery/detective" temaet
+
+**Tech tags valg:**
+- "Web Technologies" - konsistent med alle spill
+- "Mystery" - reflekterer conspiracy/detective element
+- "Detective" - indikerer detective/investigation gameplay
+
+### Git Operasjoner
+
+**Branch:** `claude/add-game-link-5UVde`
+
+**Commit:**
+```
+ca4c3e3 - Add Conspiracy Canvas game link
+```
+
+**Commit melding:**
+```
+Add Conspiracy Canvas game link
+
+- Added Conspiracy Canvas as fifth playable game
+- New link: https://tombonator3000.github.io/conspiracy-canvas/
+- Status: Playable
+- Tech tags: Web Technologies, Mystery, Detective
+- Icon: Network (fitting for conspiracy/connection theme)
+- Gradient: amber-500 to red-500
+- All five games now playable on GitHub Pages
+```
+
+**Push:**
+```bash
+git push -u origin claude/add-game-link-5UVde
+```
+✅ Suksessfullt pushet til remote
+
+### Neste Steg for Brukeren
+
+**For å aktivere endringene:**
+
+1. **Merge pull request:**
+   - Gå til: https://github.com/Tombonator3000/tom-erland-showcase/pull/new/claude/add-game-link-5UVde
+   - Opprett og merge PR til main branch
+
+2. **Etter merge:**
+   - GitHub Actions vil automatisk deploye oppdatert versjon
+   - Både Lovable og GitHub Pages vil vise nye spillinker
+   - Alle fem spill vil ha "Play Now" knapper
+
+3. **Verifiser:**
+   - Besøk: https://tombonator3000.github.io/tom-erland-showcase/
+   - Sjekk at alle fem spill har "Play Now" knapper
+   - Test at linkene fungerer til:
+     - https://tombonator3000.github.io/vector-war-games/
+     - https://tombonator3000.github.io/the-deep-ones/
+     - https://tombonator3000.github.io/3044/
+     - https://tombonator3000.github.io/state-shift-strategy/
+     - https://tombonator3000.github.io/conspiracy-canvas/ ⭐
+
+### Forventet Brukeropplevelse
+
+**Før:**
+- 4 spillbare spill med aktive linker
+- Grid layout: 2x2 (med 4 kort)
+
+**Etter:**
+- 5 spillbare spill med aktive linker
+- Grid layout: Fleksibelt responsive grid (md:grid-cols-2)
+- Alle deployed på GitHub Pages
+- Grønne "Playable" badges med animert indikator
+- Magnetic "Play Now" knapper med ikon
+- Utvidet portfolio med enda mer innhold!
+
+### Teknisk Kontekst
+
+**Spilloversikt:**
+
+| Spill | Status | GitHub Pages URL | Gradient | Ikon |
+|-------|--------|------------------|----------|------|
+| Vector War | Playable | tombonator3000.github.io/vector-war-games/ | purple→pink | Gamepad2 |
+| The Deep Ones | Playable | tombonator3000.github.io/the-deep-ones/ | cyan→blue | Cpu |
+| 3044 | Playable | tombonator3000.github.io/3044/ | pink→orange | Music |
+| State Shift Strategy | Playable | tombonator3000.github.io/state-shift-strategy/ | green→cyan | Box |
+| **Conspiracy Canvas** | **Playable** | **tombonator3000.github.io/conspiracy-canvas/** | **amber→red** | **Network** |
+
+**UI Layout:**
+- Responsive grid: `md:grid-cols-2` (2 kolonner på medium+ skjermer)
+- Med 5 kort: første rad får 2 kort, andre rad får 2 kort, tredje rad får 1 kort
+- Mobil: 1 kolonne (vertikal stabling)
+- Desktop: 2 kolonner (jevn distribusjon)
+
+**UI Komponenter:**
+- Games.tsx: Grid med 5 spillkort
+- TiltCard: 3D tilt effekt på alle kort
+- MagneticButton: "Play Now" knapper med magnetic effekt
+- Status badges: Alle viser grønn "Playable" badge
+- Parallax background orbs: Smooth scroll effekt
+
+### Endrede Filer
+- `src/components/Games.tsx` (OPPDATERT - Conspiracy Canvas link og Network ikon import)
+- `log.md` (OPPDATERT - denne entry)
+
+### Status
+
+**Current State:**
+- ✅ Games.tsx oppdatert med Conspiracy Canvas
+- ✅ Network ikon importert
+- ✅ Commit gjennomført med beskrivende melding
+- ✅ Pushet til branch: `claude/add-game-link-5UVde`
+- ⏳ Venter på at bruker merger PR
+
+**After Merge:**
+- ✅ Showcase siden vil vise fem spillbare spill
+- ✅ Alle linker til GitHub Pages deployments
+- ✅ Utvidet portfolio med 5 unike prosjekter
+- ✅ Profesjonell presentasjon av spillportefølje
+
+### Lærdommer og Observasjoner
+
+**Konsistent Design Pattern:**
+- Alle spill følger samme struktur og format
+- Unike gradienter og ikoner for visuell variasjon
+- Konsistent teknologi tagging ("Web Technologies" + 2 unike tags)
+- Standardisert "Playable" status med animert badge
+
+**Skalerbarhet:**
+- Enkel å legge til flere spill ved å utvide games array
+- Grid layout tilpasser seg automatisk til flere kort
+- Kan enkelt legge til flere spill i fremtiden ved å følge samme mønster
+
+**Portfolio Utvikling:**
+- Fra 1 spill i sesjon 5 → 5 spill i sesjon 7
+- Konsistent evolusjon og vekst av portfolio
+- Profesjonell fremstilling av spillutviklingskompetanse
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
