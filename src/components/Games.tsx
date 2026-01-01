@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Play, Gamepad2, Cpu, Music, Box } from "lucide-react";
+import { ExternalLink, Play, Gamepad2, Cpu, Music, Box, Network } from "lucide-react";
 import { useParallax, useElementInView } from "@/hooks/use-parallax";
 import TiltCard from "@/components/TiltCard";
 import MagneticButton from "@/components/MagneticButton";
@@ -44,6 +44,16 @@ const games = [
     icon: Box,
     gradient: "from-green-500 to-cyan-500",
     bgGradient: "from-green-500/10 to-cyan-500/10",
+  },
+  {
+    title: "Conspiracy Canvas",
+    description: "Connect the dots and uncover hidden conspiracies. Build your web of evidence by linking clues and revealing the truth behind mysterious events.",
+    tech: ["Web Technologies", "Mystery", "Detective"],
+    status: "Playable",
+    link: "https://tombonator3000.github.io/conspiracy-canvas/",
+    icon: Network,
+    gradient: "from-amber-500 to-red-500",
+    bgGradient: "from-amber-500/10 to-red-500/10",
   },
 ];
 
