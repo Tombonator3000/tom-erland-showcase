@@ -1426,4 +1426,200 @@ git push -u origin claude/add-game-link-cB9hU
 
 ---
 
+## 2026-01-01 - Sesjon 9: Personalisering av nettsiden
+
+### Oppgave
+Gjøre om siden fra spillutvikler-portfolio til en personlig CV-nettside som reflekterer faktisk bakgrunn og kompetanse.
+
+### Problem Bakgrunn
+Nettsiden var designet som en "Game Developer Portfolio", men dette reflekterte ikke brukerens faktiske profesjon. Spillene som er der er kun hobbyprosjekter/prototyper for moro skyld. Hovedpoenget med siden skal være å vise frem CV og kontaktinformasjon.
+
+**Faktisk bakgrunn:**
+- Førstekonsulent i Hamar bispedømme
+- Over 15 års erfaring fra administrasjon, kundeservice og IT
+- Ekspertise i Microsoft 365, Public 360, Xledger
+- Sterk lidenskap for generativ AI og LLM (Stable Diffusion, ComfyUI, Photoshop AI)
+- Tidligere stillinger i SpareBank 1 Østlandet, Handel og Kontor, JYSK
+- Utdanning i nettverksadministrasjon og Microsoft-teknologi (HiST/NTNU, IT Akademiet)
+- Sertifisert LOfavør-veileder
+
+### Løsning Implementert ✅
+
+#### 1. Oppdatert Hero.tsx (src/components/Hero.tsx)
+
+**Endringer:**
+- **Ikoner:** Byttet fra `Gamepad2, Code2` til `Briefcase, Bot`
+- **Roller (typing animation):**
+  - ❌ Før: "Game Developer", "Creative Technologist", "Unity Expert", "Unreal Enthusiast", "Interactive Designer"
+  - ✅ Etter: "Administrative Professional", "IT Support Specialist", "Digitalization Enthusiast", "AI & Automation Expert", "Microsoft 365 Specialist"
+
+- **Tech Stack (marquee):**
+  - ❌ Før: "Unity", "Unreal Engine", "C#", "C++", "React", "TypeScript", "Blender", "Shader Programming", "Multiplayer", "AI Systems"
+  - ✅ Etter: "Microsoft 365", "Public 360", "Xledger", "Stable Diffusion", "ComfyUI", "Photoshop AI", "LLM/AI", "Automation", "Cybersikkerhet", "Digitalisering"
+
+- **Feature cards:**
+  - ❌ Før: "Game Development", "Unity & Unreal", "Interactive Experiences"
+  - ✅ Etter: "Administrasjon & IT", "AI & Automation", "Digitalisering"
+
+- **CTA button:**
+  - ❌ Før: "View My Work" → scrollToSection("games")
+  - ✅ Etter: "View My CV" → scrollToSection("about")
+
+#### 2. Oppdatert About.tsx (src/components/About.tsx)
+
+**Endringer:**
+- **Ikoner:** Byttet fra `Code2, Gamepad2` til `Bot, Briefcase, Shield`
+
+- **Skills array:**
+  - ❌ Før: Unity (95%), Unreal Engine (85%), C# (90%), C++ (80%), Game Design (92%), 3D Modeling (75%)
+  - ✅ Etter: Microsoft 365 (95%), Public 360 (90%), Xledger (85%), Stable Diffusion/AI (92%), Administrasjon (95%), Cybersikkerhet (80%)
+
+- **Overskrift og beskrivelse:**
+  - ❌ Før: "Crafting Digital Experiences" - "Passionate game developer with a focus on creating engaging, innovative interactive experiences..."
+  - ✅ Etter: "Om meg - Min bakgrunn" - "Førstekonsulent i Hamar bispedømme med over 15 års erfaring fra administrasjon, kundeservice og IT..."
+
+- **Capabilities cards (3 kort):**
+  1. ❌ Før: "Game Development" - Creating gameplay mechanics...
+     ✅ Etter: "Administrasjon & IT-støtte" - Kalenderstyring, saksbehandling, Microsoft 365, Public 360, Xledger
+
+  2. ❌ Før: "Technical Design" - Architecting robust systems...
+     ✅ Etter: "AI & Generativ Kreativitet" - Stable Diffusion, ComfyUI, Photoshop AI, LLM
+
+  3. ❌ Før: "Creative Innovation" - Pushing boundaries with cutting-edge technology...
+     ✅ Etter: "Digitalisering & Struktur" - Effektivisere administrative oppgaver med moderne teknologi
+
+- **Work Experience (3 stillinger):**
+  1. Førstekonsulent - Den Norske Kirke, Hamar Bispedømme (Aug 2022 - Nå)
+  2. Fagkonsulent - SpareBank 1 Østlandet (Okt 2018 - Apr 2021)
+  3. Sekretær - Handel og Kontor Indre Østland (Aug 2014 - Okt 2017)
+
+- **Education (2 utdanninger):**
+  1. Configuring and Administering Microsoft Server/Infrastructure - IT Akademiet (2001-2002)
+  2. Drift av Internett tjenester - HiST/NTNU (2000-2001)
+
+#### 3. Oppdatert Games.tsx → Side Projects (src/components/Games.tsx)
+
+**Endringer:**
+- **Section header:**
+  - ❌ Badge: "Portfolio"
+  - ✅ Badge: "Hobbyprosjekter"
+
+  - ❌ Tittel: "Featured Projects"
+  - ✅ Tittel: "Side Projects - For moro skyld"
+
+  - ❌ Beskrivelse: "A collection of games and interactive experiences I've created. Each project represents a unique challenge and creative solution."
+  - ✅ Beskrivelse: "En samling av spillprototyper og interaktive eksperimenter jeg har laget som hobbyprosjekter. Hvert prosjekt representerer en morsom utforskning av teknologi og kreativitet."
+
+- **Bottom CTA:**
+  - ❌ Før: "More projects in development. Stay tuned for updates!"
+  - ✅ Etter: "Disse er kun hobbyprosjekter og prototyper jeg lager for moro skyld. Se CV-en min for profesjonell erfaring."
+
+  - ❌ Knapp: "View All Projects on GitHub"
+  - ✅ Knapp: "Se flere prosjekter på GitHub"
+
+#### 4. Oppdatert Contact.tsx (src/components/Contact.tsx)
+
+**Endringer:**
+- **Overskrift:**
+  - ❌ Før: "Let's Create Something Amazing" - "Have a project in mind? Let's discuss how we can work together to bring your ideas to life."
+  - ✅ Etter: "La oss ta en prat!" - "Åpen for nye muligheter innen administrasjon, IT-støtte, digitalisering eller roller der struktur møter moderne teknologi. Ta gjerne kontakt!"
+
+- **Location:**
+  - ❌ Før: "Norway (Remote-friendly)"
+  - ✅ Etter: "Hamar/Innlandet (Hjemmekontor mulig)"
+
+- **Footer subtitle:**
+  - ❌ Før: "Game Developer & Creative Technologist"
+  - ✅ Etter: "Førstekonsulent | Administrasjon & IT | AI-entusiast"
+
+- **Copyright:**
+  - ❌ Før: "Crafted with passion."
+  - ✅ Etter: "Laget med lidenskap for teknologi."
+
+#### 5. Oppdatert index.html
+
+**Endringer:**
+- **HTML lang:** `lang="en"` → `lang="no"`
+- **Title:** `"Tom Erland Husby - Game Developer Portfolio"` → `"Tom Erland Husby - CV & Portfolio"`
+- **Meta description:** Endret fra spillutvikler-fokus til førstekonsulent med administrasjon/IT/AI kompetanse
+- **Meta keywords:** Lagt til: "Førstekonsulent, Administrasjon, IT-støtte, Microsoft 365, Public 360, Xledger, AI, Generativ AI, Stable Diffusion, Hamar, Digitalisering"
+- **Open Graph tags:** Oppdatert title og description for sosiale medier
+- **Twitter Card:** Oppdatert med korrekt title og description
+
+### Resultater
+
+✅ **Profesjonell CV-nettside** - Nettsiden reflekterer nå faktisk bakgrunn og kompetanse
+
+✅ **Klar skille mellom profesjonelt og hobby** - "Side Projects" gjør det klart at spillene er hobbyprosjekter
+
+✅ **Norsk språk der relevant** - Viktige seksjoner og beskrivelser på norsk
+
+✅ **SEO-optimalisert** - Meta tags reflekterer riktig innhold og nøkkelord
+
+✅ **Personlig branding** - Fremhever faktiske styrker: Administrasjon, IT-støtte, AI/digitalisering
+
+### Git Operasjoner
+
+**Branch:** `claude/personalize-website-RKJdV`
+
+**Endrede filer:**
+- `src/components/Hero.tsx` (OPPDATERT - roller, tech stack, feature cards, CTA)
+- `src/components/About.tsx` (OPPDATERT - skills, experience, education, beskrivelser)
+- `src/components/Games.tsx` (OPPDATERT - til "Side Projects" med norsk tekst)
+- `src/components/Contact.tsx` (OPPDATERT - overskrifter, lokasjon, footer)
+- `index.html` (OPPDATERT - title, meta tags, lang attribute)
+- `log.md` (OPPDATERT - denne entry)
+
+### Neste Steg for Brukeren
+
+**For å aktivere endringene:**
+
+1. **Commit og push er i prosess**
+2. **Merge pull request når klar**
+3. **Verifiser deployment:**
+   - GitHub Pages: https://tombonator3000.github.io/tom-erland-showcase/
+   - Sjekk at alle endringer er reflektert
+   - Verifiser at norsk tekst vises korrekt
+   - Test at scrolling og navigasjon fungerer
+
+### Forventet Resultat
+
+✅ **Hero-seksjonen** viser riktige roller og kompetanse
+✅ **About-seksjonen** viser reell CV og erfaring
+✅ **Side Projects** fremstår tydelig som hobbyprosjekter
+✅ **Contact** har riktig lokasjon og beskrivelse
+✅ **SEO** reflekterer faktisk innhold
+
+### Teknisk Kontekst
+
+**Designvalg:**
+- Beholdt alle fancy effekter (parallax, tilt cards, magnetic buttons)
+- Beholdt mørk tema med gradienter
+- Beholdt spillene, men med klar kontekst som hobbyprosjekter
+- Fokus på CV og kontaktinfo som hovedinnhold
+- Balanse mellom profesjonell presentasjon og kreativ uttrykk
+
+**Språkvalg:**
+- Engelsk: Tekniske termer, component-navn, kode
+- Norsk: Brukervendt innhold, beskrivelser, jobberfaring
+- Hybrid: Best of both worlds for norsk målgruppe med internasjonalt preg
+
+### Status
+
+**Current State:**
+- ✅ Hero-seksjonen personalisert
+- ✅ About-seksjonen oppdatert med ekte CV
+- ✅ Games → Side Projects med klar hobbyprosjekt-kontekst
+- ✅ Contact oppdatert med riktig info
+- ✅ index.html SEO-optimalisert
+- ⏳ Venter på commit og push
+
+**After Deploy:**
+- ✅ Nettside reflekterer faktisk profesjonell bakgrunn
+- ✅ Spillene fremstår som hobbyprosjekter
+- ✅ CV og kontaktinfo er hovedfokus
+- ✅ SEO matcher faktisk innhold
+
+---
+
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*

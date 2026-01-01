@@ -71,13 +71,13 @@ const Contact = () => {
             Get in Touch
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text">Let's Create</span>
+            <span className="gradient-text">La oss ta</span>
             <br />
-            <span className="text-foreground">Something Amazing</span>
+            <span className="text-foreground">en prat!</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can work together
-            to bring your ideas to life.
+            Åpen for nye muligheter innen administrasjon, IT-støtte, digitalisering
+            eller roller der struktur møter moderne teknologi. Ta gjerne kontakt!
           </p>
         </div>
 
@@ -169,8 +169,8 @@ const Contact = () => {
                     <MapPin className="text-cyan-400" size={24} />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Location</h4>
-                    <p className="text-muted-foreground text-sm">Norway (Remote-friendly)</p>
+                    <h4 className="font-semibold">Lokasjon</h4>
+                    <p className="text-muted-foreground text-sm">Hamar/Innlandet (Hjemmekontor mulig)</p>
                   </div>
                 </div>
               </div>
@@ -219,7 +219,7 @@ const Contact = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
               <p className="text-2xl font-bold gradient-text">Tom Erland Husby</p>
-              <p className="text-muted-foreground text-sm">Game Developer & Creative Technologist</p>
+              <p className="text-muted-foreground text-sm">Førstekonsulent | Administrasjon & IT | AI-entusiast</p>
             </div>
             <div className="flex items-center gap-4">
               {contactMethods.slice(0, 4).map((method) => {
@@ -240,7 +240,7 @@ const Contact = () => {
           </div>
           <div className="text-center mt-8">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Tom Erland Husby. Crafted with passion.
+              © {new Date().getFullYear()} Tom Erland Husby. Laget med lidenskap for teknologi.
             </p>
           </div>
         </footer>

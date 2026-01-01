@@ -1,47 +1,53 @@
-import { Code2, Gamepad2, Sparkles, Briefcase, GraduationCap, Award, Zap } from "lucide-react";
+import { Bot, Briefcase, Sparkles, GraduationCap, Award, Zap, Shield } from "lucide-react";
 import { useParallax, useElementInView } from "@/hooks/use-parallax";
 import { useAnimatedCounter } from "@/hooks/use-fancy-effects";
 import TiltCard from "@/components/TiltCard";
 
 const skills = [
-  { name: "Unity", level: 95, color: "from-purple-500 to-pink-500" },
-  { name: "Unreal Engine", level: 85, color: "from-cyan-500 to-blue-500" },
-  { name: "C#", level: 90, color: "from-purple-500 to-cyan-500" },
-  { name: "C++", level: 80, color: "from-pink-500 to-purple-500" },
-  { name: "Game Design", level: 92, color: "from-cyan-500 to-pink-500" },
-  { name: "3D Modeling", level: 75, color: "from-blue-500 to-purple-500" },
+  { name: "Microsoft 365", level: 95, color: "from-purple-500 to-pink-500" },
+  { name: "Public 360", level: 90, color: "from-cyan-500 to-blue-500" },
+  { name: "Xledger", level: 85, color: "from-purple-500 to-cyan-500" },
+  { name: "Stable Diffusion/AI", level: 92, color: "from-pink-500 to-purple-500" },
+  { name: "Administrasjon", level: 95, color: "from-cyan-500 to-pink-500" },
+  { name: "Cybersikkerhet", level: 80, color: "from-blue-500 to-purple-500" },
 ];
 
 const experience = [
   {
-    title: "Senior Game Developer",
-    company: "Game Studio",
-    period: "2020 - Present",
-    description: "Leading development of multiplayer games and interactive experiences. Architecting game systems and mentoring junior developers.",
-    tech: ["Unity", "C#", "Multiplayer", "Game Design"],
+    title: "Førstekonsulent",
+    company: "Den Norske Kirke, Hamar Bispedømme",
+    period: "Aug 2022 - Nå",
+    description: "Daglig støttespiller for biskop og stiftsdirektør. Kalenderstyring, saksbehandling, møteplanlegging for organisasjon med 10 prostier og 163 sogn. Håndterer IT- og telefoniløsninger, samt støtte med kontering og fakturering.",
+    tech: ["Microsoft 365", "Public 360", "Xledger", "Saksbehandling"],
   },
   {
-    title: "Game Developer",
-    company: "Interactive Media Company",
-    period: "2017 - 2020",
-    description: "Developed gameplay systems, AI behaviors, and optimization solutions for mobile and console platforms.",
-    tech: ["Unreal Engine", "C++", "AI Systems"],
+    title: "Fagkonsulent",
+    company: "SpareBank 1 Østlandet (SDS Drift)",
+    period: "Okt 2018 - Apr 2021",
+    description: "Produksjons-, kontroll- og oppfølgingsoppgaver innen konto/AML og kundekontroll. Rådgivning og support til kolleger og kunder. Kvalitetssikring av antihvitvaskprosesser.",
+    tech: ["Kundeservice", "AML", "Kvalitetssikring"],
   },
   {
-    title: "Junior Developer",
-    company: "Indie Game Studio",
-    period: "2015 - 2017",
-    description: "Started career creating indie games, learning game development fundamentals and shipping products.",
-    tech: ["Unity", "Game Design", "Prototyping"],
+    title: "Sekretær",
+    company: "Handel og Kontor Indre Østland",
+    period: "Aug 2014 - Okt 2017",
+    description: "Førstelinje kundeservice, saksbehandling og medlemspleie. Fysisk og digital arkivering, kontering og fakturering. Sertifisert LOfavør-veileder med kompetanse i medlemsfordeler og faglig rådgivning.",
+    tech: ["Administrasjon", "Arkivering", "Medlemspleie"],
   },
 ];
 
 const education = [
   {
-    degree: "Bachelor in Game Development",
-    school: "University of Technology",
-    year: "2015",
-    description: "Specialized in game programming and interactive design.",
+    degree: "Configuring and Administering Microsoft Server/Infrastructure",
+    school: "IT Akademiet",
+    year: "2001-2002",
+    description: "Spesialisering i Microsoft-teknologi og serverinfrastruktur.",
+  },
+  {
+    degree: "Drift av Internett tjenester",
+    school: "Høgskolen i Sør-Trøndelag (HiST) / NTNU",
+    year: "2000-2001",
+    description: "Utdanning i nettverksadministrasjon og internettjenester.",
   },
 ];
 
@@ -104,14 +110,14 @@ const About = () => {
             About Me
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text">Crafting Digital</span>
+            <span className="gradient-text">Om meg</span>
             <br />
-            <span className="text-foreground">Experiences</span>
+            <span className="text-foreground">Min bakgrunn</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Passionate game developer with a focus on creating engaging, innovative
-            interactive experiences. I combine technical expertise with creative vision
-            to bring ideas to life.
+            Førstekonsulent i Hamar bispedømme med over 15 års erfaring fra administrasjon,
+            kundeservice og IT. Jeg kombinerer administrativ kompetanse med lidenskap for
+            digital kreativitet og generativ AI.
           </p>
         </div>
 
@@ -148,12 +154,12 @@ const About = () => {
           <TiltCard intensity={10}>
             <div className="glass rounded-2xl p-8 card-hover group h-full">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Gamepad2 className="text-purple-400" size={28} />
+                <Briefcase className="text-purple-400" size={28} />
               </div>
-              <h4 className="text-xl font-bold mb-3">Game Development</h4>
+              <h4 className="text-xl font-bold mb-3">Administrasjon & IT-støtte</h4>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Creating engaging gameplay mechanics, polished user experiences, and
-                optimized game systems across multiple platforms.
+                Kalenderstyring, saksbehandling og møteplanlegging. Håndterer IT- og
+                telefoniløsninger med Microsoft 365, Public 360 og Xledger.
               </p>
             </div>
           </TiltCard>
@@ -161,12 +167,12 @@ const About = () => {
           <TiltCard intensity={10}>
             <div className="glass rounded-2xl p-8 card-hover group h-full">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Code2 className="text-cyan-400" size={28} />
+                <Bot className="text-cyan-400" size={28} />
               </div>
-              <h4 className="text-xl font-bold mb-3">Technical Design</h4>
+              <h4 className="text-xl font-bold mb-3">AI & Generativ Kreativitet</h4>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Architecting robust systems, implementing efficient algorithms, and
-                optimizing performance for seamless experiences.
+                Omfattende praktisk erfaring med Stable Diffusion, ComfyUI, Photoshop
+                AI-plugins og store språkmodeller for kreative prosjekter og effektivisering.
               </p>
             </div>
           </TiltCard>
@@ -176,10 +182,10 @@ const About = () => {
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Sparkles className="text-pink-400" size={28} />
               </div>
-              <h4 className="text-xl font-bold mb-3">Creative Innovation</h4>
+              <h4 className="text-xl font-bold mb-3">Digitalisering & Struktur</h4>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Pushing boundaries with cutting-edge technology, experimental gameplay,
-                and unique visual experiences.
+                Skaper struktur og støtter både ledelse og medarbeidere. Finner smarte
+                måter å effektivisere administrative oppgaver med moderne teknologi.
               </p>
             </div>
           </TiltCard>

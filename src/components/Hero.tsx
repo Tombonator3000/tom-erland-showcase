@@ -1,4 +1,4 @@
-import { ArrowDown, Gamepad2, Code2, Sparkles } from "lucide-react";
+import { ArrowDown, Briefcase, Bot, Sparkles } from "lucide-react";
 import { useParallax, useMouseParallax } from "@/hooks/use-parallax";
 import { useTypingEffect } from "@/hooks/use-fancy-effects";
 import { GlitchText, TypingCursor } from "@/components/AnimatedText";
@@ -7,16 +7,16 @@ import ParticleBackground from "@/components/ParticleBackground";
 import Marquee, { MarqueeItem } from "@/components/Marquee";
 
 const roles = [
-  "Game Developer",
-  "Creative Technologist",
-  "Unity Expert",
-  "Unreal Enthusiast",
-  "Interactive Designer",
+  "Administrative Professional",
+  "IT Support Specialist",
+  "Digitalization Enthusiast",
+  "AI & Automation Expert",
+  "Microsoft 365 Specialist",
 ];
 
 const techStack = [
-  "Unity", "Unreal Engine", "C#", "C++", "React", "TypeScript",
-  "Blender", "Shader Programming", "Multiplayer", "AI Systems"
+  "Microsoft 365", "Public 360", "Xledger", "Stable Diffusion", "ComfyUI",
+  "Photoshop AI", "LLM/AI", "Automation", "Cybersikkerhet", "Digitalisering"
 ];
 
 const Hero = () => {
@@ -156,27 +156,27 @@ const Hero = () => {
         {/* Feature cards */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:scale-105 transition-transform">
-            <Gamepad2 size={18} className="text-purple-400" />
-            <span className="text-sm">Game Development</span>
+            <Briefcase size={18} className="text-purple-400" />
+            <span className="text-sm">Administrasjon & IT</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:scale-105 transition-transform">
-            <Code2 size={18} className="text-cyan-400" />
-            <span className="text-sm">Unity & Unreal</span>
+            <Bot size={18} className="text-cyan-400" />
+            <span className="text-sm">AI & Automation</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 glass rounded-lg hover:scale-105 transition-transform">
             <Sparkles size={18} className="text-pink-400" />
-            <span className="text-sm">Interactive Experiences</span>
+            <span className="text-sm">Digitalisering</span>
           </div>
         </div>
 
         {/* CTA buttons with magnetic effect */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <MagneticButton
-            onClick={() => scrollToSection("games")}
+            onClick={() => scrollToSection("about")}
             className="group relative bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 border-0 px-8 py-6 text-lg glow transition-all duration-300"
             strength={0.3}
           >
-            <span className="relative z-10">View My Work</span>
+            <span className="relative z-10">View My CV</span>
           </MagneticButton>
           <MagneticButton
             variant="outline"
