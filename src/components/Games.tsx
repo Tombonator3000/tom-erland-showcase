@@ -92,16 +92,17 @@ const Games = () => {
           className={`text-center mb-16 reveal ${headerInView ? 'visible' : ''}`}
         >
           <span className="inline-block px-4 py-1 glass rounded-full text-sm text-cyan-400 mb-4">
-            Portfolio
+            Hobbyprosjekter
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            <span className="gradient-text-alt">Featured</span>
+            <span className="gradient-text-alt">Side Projects</span>
             <br />
-            <span className="text-foreground">Projects</span>
+            <span className="text-foreground">For moro skyld</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A collection of games and interactive experiences I've created.
-            Each project represents a unique challenge and creative solution.
+            En samling av spillprototyper og interaktive eksperimenter jeg har laget
+            som hobbyprosjekter. Hvert prosjekt representerer en morsom utforskning av
+            teknologi og kreativitet.
           </p>
         </div>
 
@@ -208,7 +209,8 @@ const Games = () => {
         {/* Bottom CTA */}
         <div className={`text-center mt-16 reveal ${gamesInView ? 'visible' : ''}`} style={{ transitionDelay: '0.6s' }}>
           <p className="text-muted-foreground mb-6">
-            More projects in development. Stay tuned for updates!
+            Disse er kun hobbyprosjekter og prototyper jeg lager for moro skyld.
+            Se CV-en min for profesjonell erfaring.
           </p>
           <MagneticButton
             variant="outline"
@@ -217,7 +219,7 @@ const Games = () => {
             onClick={() => window.open('https://github.com/Tombonator3000', '_blank')}
             strength={0.3}
           >
-            View All Projects on GitHub
+            Se flere prosjekter på GitHub
             <ExternalLink size={16} className="ml-2" />
           </MagneticButton>
         </div>
