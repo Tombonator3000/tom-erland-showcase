@@ -62,6 +62,85 @@ const ParticleBackground = ({
 
     window.addEventListener("mousemove", handleMouseMove);
 
+    // Helper function: Apply mouse force to particle
+    const applyMouseForce = (particle: Particle, mouse: { x: number; y: number }) => {
+      const dx = mouse.x - particle.x;
+      const dy = mouse.y - particle.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < mouseRadius) {
+        const force = (mouseRadius - distance) / mouseRadius;
+        particle.vx -= (dx / distance) * force * 0.02;
+        particle.vy -= (dy / distance) * force * 0.02;
+      }
+
+      return distance;
+    };
+
+    // Helper function: Update particle position with boundary check
+    const updateParticlePosition = (particle: Particle, canvasWidth: number, canvasHeight: number) => {
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+
+      // Boundary check - bounce off edges
+      if (particle.x < 0 || particle.x > canvasWidth) particle.vx *= -1;
+      if (particle.y < 0 || particle.y > canvasHeight) particle.vy *= -1;
+    };
+
+    // Helper function: Draw a single particle
+    const drawParticle = (ctx: CanvasRenderingContext2D, particle: Particle) => {
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.fillStyle = particle.color;
+      ctx.globalAlpha = particle.opacity;
+      ctx.fill();
+    };
+
+    // Helper function: Draw connections between nearby particles
+    const drawConnections = (
+      ctx: CanvasRenderingContext2D,
+      particle: Particle,
+      particles: Particle[],
+      startIndex: number
+    ) => {
+      for (let j = startIndex + 1; j < particles.length; j++) {
+        const other = particles[j];
+        const dx = particle.x - other.x;
+        const dy = particle.y - other.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < connectDistance) {
+          ctx.beginPath();
+          ctx.moveTo(particle.x, particle.y);
+          ctx.lineTo(other.x, other.y);
+          ctx.strokeStyle = particle.color;
+          ctx.globalAlpha = (1 - dist / connectDistance) * 0.2;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    };
+
+    // Helper function: Draw connection to mouse
+    const drawMouseConnection = (
+      ctx: CanvasRenderingContext2D,
+      particle: Particle,
+      mouse: { x: number; y: number },
+      distance: number
+    ) => {
+      const maxMouseDistance = mouseRadius * 1.5;
+
+      if (distance < maxMouseDistance) {
+        ctx.beginPath();
+        ctx.moveTo(particle.x, particle.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = particle.color;
+        ctx.globalAlpha = (1 - distance / maxMouseDistance) * 0.3;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    };
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -70,60 +149,20 @@ const ParticleBackground = ({
 
       // Update and draw particles
       particles.forEach((particle, i) => {
-        // Mouse interaction
-        const dx = mouse.x - particle.x;
-        const dy = mouse.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        // Apply mouse interaction force and get distance
+        const mouseDistance = applyMouseForce(particle, mouse);
 
-        if (distance < mouseRadius) {
-          const force = (mouseRadius - distance) / mouseRadius;
-          particle.vx -= (dx / distance) * force * 0.02;
-          particle.vy -= (dy / distance) * force * 0.02;
-        }
+        // Update particle position
+        updateParticlePosition(particle, canvas.width, canvas.height);
 
-        // Update position
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+        // Draw the particle
+        drawParticle(ctx, particle);
 
-        // Boundary check
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+        // Draw connections to nearby particles
+        drawConnections(ctx, particle, particles, i);
 
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.globalAlpha = particle.opacity;
-        ctx.fill();
-
-        // Connect nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const other = particles[j];
-          const dx = particle.x - other.x;
-          const dy = particle.y - other.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < connectDistance) {
-            ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(other.x, other.y);
-            ctx.strokeStyle = particle.color;
-            ctx.globalAlpha = (1 - dist / connectDistance) * 0.2;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-
-        // Connect to mouse
-        if (distance < mouseRadius * 1.5) {
-          ctx.beginPath();
-          ctx.moveTo(particle.x, particle.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = particle.color;
-          ctx.globalAlpha = (1 - distance / (mouseRadius * 1.5)) * 0.3;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
+        // Draw connection to mouse
+        drawMouseConnection(ctx, particle, mouse, mouseDistance);
       });
 
       ctx.globalAlpha = 1;
