@@ -46,16 +46,16 @@ const About = () => {
         </div>
 
         {/* Skills section */}
-        <SkillsSection isVisible={skillsInView} sectionRef={skillsRef} />
+        <SkillsSection isVisible={skillsInView} sectionRef={skillsRef as unknown as (node?: Element | null) => void} />
 
         {/* Capabilities grid */}
         <CapabilitiesGrid isVisible={skillsInView} />
 
         {/* Experience section */}
-        <ExperienceTimeline isVisible={expInView} sectionRef={expRef} />
+        <ExperienceTimeline isVisible={expInView} sectionRef={expRef as unknown as (node?: Element | null) => void} />
 
         {/* Education section */}
-        <EducationSection isVisible={eduInView} sectionRef={eduRef} />
+        <EducationSection isVisible={eduInView} sectionRef={eduRef as unknown as (node?: Element | null) => void} />
       </div>
     </section>
   );

@@ -65,6 +65,16 @@ const games = [
     gradient: "from-indigo-500 to-violet-500",
     bgGradient: "from-indigo-500/10 to-violet-500/10",
   },
+  {
+    title: "Guild Life",
+    description: "Build and manage your own guild in this immersive community-driven experience. Recruit members, complete quests, and grow your guild's reputation.",
+    tech: ["Web Technologies", "Community", "Management"],
+    status: "Playable",
+    link: "https://guild-life.com/",
+    icon: Gamepad2,
+    gradient: "from-emerald-500 to-teal-500",
+    bgGradient: "from-emerald-500/10 to-teal-500/10",
+  },
 ];
 
 const Games = () => {
