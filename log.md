@@ -1899,3 +1899,89 @@ git push -u origin claude/refactor-complex-code-Bqd0r
 ---
 
 *Logg oppdateres kontinuerlig gjennom utviklingssesjonene*
+
+---
+
+## 2026-10-02 - Sesjon 11: IKEA-monteringsanvisning (parodi-redesign)
+
+Branch: `ccr-0a588272-iuvvje`
+
+### 03:30 UTC - Oppstart
+- Brukeren ba om å gjøre om nettsiden til en teknisk fancy og morsom, animert parodi på en IKEA-monteringsanvisning med IKEA-figurer. Referansebilde: Esquire juni 2006, "IKEA Instructions" (Mike Sacks / Julian Sancton).
+- Leste `agents.md`, `README.md`, `DEPLOYMENT.md`, `IMPROVEMENTS.md` og hele `log.md`. Sjekket også `AGENTS.md` i prosjektbibliotek (referansebibliotek, ingen instrukser som gjelder denne siden).
+- Gikk gjennom alle komponenter: Hero, About (+ about/*), Games, Contact, Navigation, LoadingScreen, CursorGlow, TiltCard, MagneticButton, Marquee, ParticleBackground, hooks.
+- Fant en tidligere commit `1a09a0e` "Redesign website to IKEA manual style" (Lovable, enkel strekfigur). Den nye versjonen skal være mye mer ambisiøs.
+
+### 03:40 UTC - Grunnlinje
+- `npm ci` OK. `npm run build` OK (JS 360 kB / 112 kB gzip).
+- `npm run lint`: 3 feil og 7 advarsler fra før, alle i shadcn-filer og `tailwind.config.ts`.
+- Opprettet `todo.md` og `memory.md`.
+
+### Plan
+- Produktet heter HUSBY. Tom er produktet som monteres.
+- Sider: Forside, Før du starter, Innhold i pakken (ferdigheter som skruer på 1:1-linjal), Sprengskisse (kompetanseområder, monteres ved scrolling), Monteringstrinn (utdanning og jobber), Tilleggsprodukter (hobbyspill), Kundeservice (kontakt), bakside.
+- Teknikk: rigget SVG-figur med ledd styrt av CSS-variabler, strektegning som tegner seg selv, scroll-scrubbet sprengskisse med sticky scene, vindu med sol og måne, gående mann på fremdriftslinja, skruejakt, insexnøkkel-markør.
+
+### ca. 03:45-03:55 UTC - Rigget IKEA-figur
+- Laget `src/components/ikea/IkeaMan.tsx`, `poses.ts` og `geometry.ts`.
+- Figuren er en SVG med ledd i nestede `<g>`. Hvert ledd roterer med CSS (`rotate(var(--sf))` osv.), så en ny positur er bare nye CSS-variabler, og nettleseren animerer overgangen selv.
+- Armer og bein tegnes to ganger (tykk svart strek, så tynnere hvit strek over), så lemmene ser sømløse ut i albuer og knær.
+- Poser: stand, point, present, think, scratch, read, phone, carry, cheer, shrug, kneel, sit, type, lie, inspect.
+- Løkker (`rig.css`): idle, walk, run, scratch, wave, cheer, type, screw, talk, nod, shake.
+- Testet med en midlertidig `/lab`-side og skjermbilder i Playwright. Telefonposituren måtte justeres flere ganger før den var lesbar. `/lab` er fjernet igjen.
+
+### ca. 03:55-04:05 UTC - Designsystem og SVG-deler
+- Ny `src/index.css`: papirhvitt ark, svart blekk, IKEA-gul aksent, knapper med "trykk"-skygge, fokusring i gult og svart.
+- `src/styles/manual.css`: strektegning som tegner seg selv (`pathLength=1` + `stroke-dashoffset`), pop/fade/drop-animasjoner med forsinkelse via `--d`, og løkker som pauses når tegningen er utenfor skjermen.
+- `parts.tsx`: skrue, plugg, eksenterlås, insexnøkkel, planke, eske, pil, dreiepil, tankeboble, kryss, hake, KLIKK, svettedråper.
+- `props.tsx`: vindu med sol/måne, kaffekopp, laptop, gammel PC, serverrack, permer, papir, vaskemaskin, pengeseddel, lupe, kirke, kalender, telefonrør, bygning med HAMAR-skilt, pult, stol, bokhylle, plante, timeglass, spillkontroll, vitnemål, kontorbygg, klokke, blyant, linjal.
+- Musepeker: insexnøkkel (SVG-cursor). Pekende hånd på lenker og knapper.
+
+### ca. 04:05-04:25 UTC - Sidene
+- Side 1 Forside (`Cover.tsx`): HUSBY-tittel, "Bruksområde" som bytter ord, spesifikasjonstabell, gul OBS-lapp ("denne anvisningen inneholder ord, vi beklager"), åpnet eske, målsetting "15+ år", figuren vinker og klør seg i hodet i en løkke, vinduet går fra dag til natt. Transportbånd med teknologiene (`Conveyor.tsx`).
+- Side 2 Før du starter (`BeforeYouStart.tsx`): fire piktogrammer med kryss og hake.
+- Side 3 Innhold i pakken (`PartsList.tsx`): deleliste og "Skrueoversikt 1:1". Skruene tegnes i ekte piksler (ResizeObserver), glir inn langs linjalen og tallene teller opp.
+- Side 4 Sprengskisse (`ExplodedView.tsx`): sticky scene på 330vh. Scroll-posisjonen styrer hver del direkte i DOM (ingen React-rendering per bilde). Bein, overkropp, armer og hode (som skrus på med 1,5 omdreining). KLIKK når en del sitter, kortene A-D lyser opp, monteringsgrad i prosent. Til slutt tar den riggede figuren over og vinker.
+- Side 5 Monteringsanvisning (`AssemblySteps.tsx`, `StepScenes.tsx`): fem trinn (to utdanninger, tre jobber) pluss "Ferdig". Egen tegning per trinn: modem som piper, server som skyves inn, permer, vaskemaskin med kryss (antihvitvask), kirke og ringende telefon. Antall kaffekopper øker for hvert trinn.
+- Side 6 Tilleggsprodukter (`Projects.tsx`, `ProjectArt.tsx`): de sju spillene som produktkort med gul "0,-"-prislapp og egne tegninger.
+- Side 7 Kundeservice (`Support.tsx`): figur som ringer til HAMAR, klokke som går altfor fort, kontaktinfo på en handleliste.
+- Bakside (`BackCover.tsx`): takk, ansvarsfraskrivelse og kreditering av Esquire-tegneserien.
+
+### ca. 04:20 UTC - Ekstra
+- `Unboxing.tsx`: lasteskjerm der esken rister, åpnes og Tom spretter opp. Én gang per økt, "Hopp over" og Escape. Tegningene under venter med å tegne seg selv til intro er ferdig (`src/lib/ready.ts`).
+- `Walker.tsx`: liten mann med planke langs bunnen av skjermen viser hvor langt man har scrollet. Han snur når man scroller opp og jubler på siste side.
+- Skruejakt (`ScrewHunt.tsx`, `hunt-context.ts`, `HuntComplete.tsx`): fem skruer gjemt rundt på siden. Skruen flyr til telleren i menyen (Web Animations API). Alle fem gir en feiring med skruer som regner ned. Lagres i localStorage.
+- `ClickTwist.tsx`: liten dreiepil der man klikker.
+- `NotFound.tsx`: "Del 404 mangler", figuren ligger utslitt på gulvet.
+
+### Beslutninger
+- Kontaktskjemaet er fjernet. Det sendte aldri noe, og e-posten var plassholderen tom@example.com. Kontakt går nå via LinkedIn og GitHub.
+- Twitter-lenken er fjernet. Den pekte bare til twitter.com, ikke til en profil.
+- Teksten er gjort norsk hele veien. Spillbeskrivelsene er oversatt fra engelsk uten å endre innholdet.
+- "Den Norske Kirke, Hamar Bispedømme" er skrevet "Den norske kirke, Hamar bispedømme".
+- Google Fonts er byttet ut med selvhostede fonter (`@fontsource-variable/noto-sans` og `noto-sans-mono`). Bedre for personvern og lastetid, og det fungerte i testmiljøet.
+- `tailwind.config.ts`: `require()` byttet til `import` (fjernet en av de gamle lint-feilene).
+- Nytt favicon i samme stil (`public/favicon.svg`), `favicon.ico` beholdt som reserve.
+
+### Opprydding
+- Slettet komponenter som ikke brukes lenger: Hero, About (+ about/*), Games, Contact, LoadingScreen, CursorGlow, AnimatedText, MagneticButton, TiltCard, Marquee, ParticleBackground, hooks `use-fancy-effects` og `use-parallax`, og `App.css`.
+
+### ca. 04:25 UTC - Verifisering
+- `npx tsc -p tsconfig.app.json --noEmit`: OK.
+- `npm run lint`: 2 feil og 7 advarsler, alle i gamle shadcn-filer (`ui/command.tsx`, `ui/textarea.tsx` m.fl.). Ingen fra nye filer. Før: 3 feil og 7 advarsler.
+- `npm run build` og `GITHUB_PAGES=true vite build`: OK. JS 397 kB (127 kB gzip), CSS 102 kB (20 kB gzip).
+- GitHub Pages-bygget testet under `/tom-erland-showcase/` med http-server: ingen 404 på ressurser, fonter lastet (bare latin-delen).
+- Skjermbilder i Chromium på 1440, 1280, 1024, 820, 768, 375 og 320 px. Ingen horisontal scrolling.
+- Skruejakt testet automatisk: teller 1/5 til 5/5, feiring vises, lagres i localStorage, Escape lukker.
+- Redusert bevegelse testet: ingen intro, alt ferdig tegnet, sprengskissen vises ferdig montert.
+- Ikke testet i Safari eller Firefox (finnes ikke i testmiljøet).
+
+### ca. 04:35 UTC - Delingsbilde
+- Lagde `public/og-image.png` (1200 x 630) fra forsiden med Playwright, uten meny og transportbånd.
+- `index.html`: `og:image` og `twitter:image` peker nå på `https://tombonator3000.github.io/tom-erland-showcase/og-image.png` i stedet for Lovables standardbilde. La til bredde, høyde og alt-tekst.
+- Fungerer når main er deployet til GitHub Pages.
+
+### 05:02 UTC - Pull request
+- Brukeren ba om pull request. Opprettet PR #14 fra `ccr-0a588272-iuvvje` mot `main`: https://github.com/Tombonator3000/tom-erland-showcase/pull/14
+- Ingen PR-mal i repoet. `main` hadde ikke flyttet seg siden branchen ble laget, og GitHub melder at PR-en kan merges uten konflikter.
+- Ingen CI kjører på PR-er her. `deploy.yml` kjører først ved push til `main`, og bygger og deployer da til GitHub Pages.

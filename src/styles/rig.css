@@ -1,0 +1,207 @@
+/* Rig for the IKEA man (see components/ikea/IkeaMan.tsx). */
+
+.ikea-man {
+  --im-ink: var(--ink, #111);
+  --im-paper: var(--sheet, #fff);
+  --im-t: 0.65s;
+}
+
+.ikea-man .im-root,
+.ikea-man .im-torso,
+.ikea-man .im-j {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  transition: transform var(--im-t) cubic-bezier(0.34, 1.32, 0.5, 1);
+}
+
+.ikea-man .im-root { transform: translateY(var(--y)) rotate(var(--rot)); }
+.ikea-man .im-torso { transform: rotate(var(--torso)); }
+.ikea-man .im-head { transform: rotate(var(--head)); }
+.ikea-man .im-sf { transform: rotate(var(--sf)); }
+.ikea-man .im-ef { transform: rotate(var(--ef)); }
+.ikea-man .im-sb { transform: rotate(var(--sb)); }
+.ikea-man .im-eb { transform: rotate(var(--eb)); }
+.ikea-man .im-hf { transform: rotate(var(--hf)); }
+.ikea-man .im-kf { transform: rotate(var(--kf)); }
+.ikea-man .im-hb { transform: rotate(var(--hb)); }
+.ikea-man .im-kb { transform: rotate(var(--kb)); }
+
+.ikea-man .im-ol,
+.ikea-man .im-fl {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ikea-man .im-ol { stroke: var(--im-ink); }
+.ikea-man .im-fl { stroke: var(--im-paper); }
+.ikea-man .im-arm.im-ol { stroke-width: 12.2px; }
+.ikea-man .im-arm.im-fl { stroke-width: 7.2px; }
+.ikea-man .im-leg.im-ol { stroke-width: 17px; }
+.ikea-man .im-leg.im-fl { stroke-width: 12px; }
+.ikea-man .im-ol-hand { fill: var(--im-ink); }
+.ikea-man .im-fl-hand { fill: var(--im-paper); }
+
+.ikea-man .im-solid {
+  fill: var(--im-paper);
+  stroke: var(--im-ink);
+  stroke-width: 2.5px;
+  stroke-linejoin: round;
+}
+.ikea-man .im-nose {
+  fill: var(--im-paper);
+  stroke: var(--im-ink);
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+}
+
+/* ---------- Looping animations ---------- */
+
+.ikea-man.im-anim-idle .im-torso { animation: im-breathe 3.2s ease-in-out infinite; }
+.ikea-man.im-anim-idle .im-head { animation: im-look 6s ease-in-out infinite; }
+
+@keyframes im-breathe {
+  0%, 100% { transform: rotate(var(--torso)); }
+  50% { transform: rotate(calc(var(--torso) + 1.6deg)); }
+}
+@keyframes im-look {
+  0%, 40%, 100% { transform: rotate(var(--head)); }
+  50%, 70% { transform: rotate(calc(var(--head) + 7deg)); }
+}
+
+/* Walk: one cycle is two steps. The back limbs run half a cycle behind. */
+.ikea-man.im-anim-walk { --im-walk: 0.9s; }
+.ikea-man.im-anim-run { --im-walk: 0.5s; }
+.ikea-man.im-anim-walk .im-root,
+.ikea-man.im-anim-run .im-root { animation: im-bob calc(var(--im-walk) / 2) ease-in-out infinite; }
+.ikea-man.im-anim-walk .im-hf,
+.ikea-man.im-anim-run .im-hf { animation: im-thigh var(--im-walk) ease-in-out infinite; }
+.ikea-man.im-anim-walk .im-hb,
+.ikea-man.im-anim-run .im-hb { animation: im-thigh var(--im-walk) ease-in-out infinite; animation-delay: calc(var(--im-walk) / -2); }
+.ikea-man.im-anim-walk .im-kf,
+.ikea-man.im-anim-run .im-kf { animation: im-knee var(--im-walk) linear infinite; }
+.ikea-man.im-anim-walk .im-kb,
+.ikea-man.im-anim-run .im-kb { animation: im-knee var(--im-walk) linear infinite; animation-delay: calc(var(--im-walk) / -2); }
+.ikea-man.im-anim-walk .im-sb,
+.ikea-man.im-anim-run .im-sb { animation: im-swing var(--im-walk) ease-in-out infinite; }
+.ikea-man.im-anim-walk .im-sf,
+.ikea-man.im-anim-run .im-sf { animation: im-swing var(--im-walk) ease-in-out infinite; animation-delay: calc(var(--im-walk) / -2); }
+.ikea-man.im-anim-run .im-torso { transform: rotate(12deg); }
+.ikea-man.im-anim-run .im-ef,
+.ikea-man.im-anim-run .im-eb { transform: rotate(-80deg); }
+
+/* A walker that carries something keeps its arms still. */
+.ikea-man.im-anim-walk.im-carrying .im-sf,
+.ikea-man.im-anim-walk.im-carrying .im-sb { animation: none; }
+
+@keyframes im-bob {
+  0%, 100% { transform: translateY(var(--y)) rotate(var(--rot)); }
+  50% { transform: translateY(calc(var(--y) - 2.5px)) rotate(var(--rot)); }
+}
+@keyframes im-thigh {
+  0%, 100% { transform: rotate(-24deg); }
+  50% { transform: rotate(22deg); }
+}
+@keyframes im-knee {
+  0% { transform: rotate(6deg); }
+  40% { transform: rotate(4deg); }
+  62% { transform: rotate(18deg); }
+  78% { transform: rotate(52deg); }
+  92% { transform: rotate(24deg); }
+  100% { transform: rotate(6deg); }
+}
+@keyframes im-swing {
+  0%, 100% { transform: rotate(-22deg); }
+  50% { transform: rotate(20deg); }
+}
+
+/* Scratching the head, the universal sign for "what is this part for". */
+.ikea-man.im-anim-scratch .im-eb { animation: im-scratch 0.42s ease-in-out infinite alternate; }
+.ikea-man.im-anim-scratch .im-head { animation: im-tilt 2.4s ease-in-out infinite; }
+@keyframes im-scratch {
+  from { transform: rotate(calc(var(--eb) - 10deg)); }
+  to { transform: rotate(calc(var(--eb) + 12deg)); }
+}
+@keyframes im-tilt {
+  0%, 100% { transform: rotate(var(--head)); }
+  50% { transform: rotate(calc(var(--head) + 6deg)); }
+}
+
+.ikea-man.im-anim-wave .im-ef { animation: im-wave 0.5s ease-in-out infinite alternate; }
+@keyframes im-wave {
+  from { transform: rotate(-38deg); }
+  to { transform: rotate(8deg); }
+}
+
+.ikea-man.im-anim-cheer .im-root { animation: im-jump 0.7s cubic-bezier(0.3, 0, 0.5, 1) infinite; }
+.ikea-man.im-anim-cheer .im-sf { animation: im-cheer-f 0.7s ease-in-out infinite; }
+.ikea-man.im-anim-cheer .im-sb { animation: im-cheer-b 0.7s ease-in-out infinite; }
+@keyframes im-jump {
+  0%, 100% { transform: translateY(var(--y)); }
+  45% { transform: translateY(calc(var(--y) - 12px)); }
+}
+@keyframes im-cheer-f {
+  0%, 100% { transform: rotate(-150deg); }
+  45% { transform: rotate(-176deg); }
+}
+@keyframes im-cheer-b {
+  0%, 100% { transform: rotate(-136deg); }
+  45% { transform: rotate(-162deg); }
+}
+
+.ikea-man.im-anim-type .im-ef { animation: im-tap 0.26s ease-in-out infinite alternate; }
+.ikea-man.im-anim-type .im-eb { animation: im-tap-b 0.26s ease-in-out infinite alternate-reverse; }
+.ikea-man.im-anim-type .im-head { animation: im-look 5s ease-in-out infinite; }
+@keyframes im-tap {
+  from { transform: rotate(calc(var(--ef) - 4deg)); }
+  to { transform: rotate(calc(var(--ef) + 6deg)); }
+}
+@keyframes im-tap-b {
+  from { transform: rotate(calc(var(--eb) - 4deg)); }
+  to { transform: rotate(calc(var(--eb) + 6deg)); }
+}
+
+/* Turning an Allen key: the forearm saws back and forth. */
+.ikea-man.im-anim-screw .im-ef { animation: im-turn 0.55s ease-in-out infinite alternate; }
+.ikea-man.im-anim-screw .im-item { animation: im-twist 0.55s ease-in-out infinite alternate; transform-box: view-box; transform-origin: 0 0; }
+@keyframes im-turn {
+  from { transform: rotate(calc(var(--ef) - 10deg)); }
+  to { transform: rotate(calc(var(--ef) + 14deg)); }
+}
+
+.ikea-man.im-anim-talk .im-ef { animation: im-gesture 1.3s ease-in-out infinite; }
+.ikea-man.im-anim-talk .im-head { animation: im-nod 1.3s ease-in-out infinite; }
+@keyframes im-gesture {
+  0%, 100% { transform: rotate(var(--ef)); }
+  30% { transform: rotate(calc(var(--ef) - 14deg)); }
+  60% { transform: rotate(calc(var(--ef) + 6deg)); }
+}
+
+.ikea-man.im-anim-nod .im-head { animation: im-nod 0.9s ease-in-out infinite; }
+@keyframes im-nod {
+  0%, 100% { transform: rotate(var(--head)); }
+  50% { transform: rotate(calc(var(--head) + 9deg)); }
+}
+
+.ikea-man.im-anim-shake .im-head { animation: im-shake 0.5s ease-in-out infinite; }
+@keyframes im-shake {
+  0%, 100% { transform: rotate(var(--head)); }
+  25% { transform: rotate(calc(var(--head) - 7deg)); }
+  75% { transform: rotate(calc(var(--head) + 7deg)); }
+}
+
+@keyframes im-twist {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(16deg); }
+}
+
+/* Pause loops while the scene is off screen. */
+.is-paused .ikea-man,
+.is-paused .ikea-man * { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ikea-man .im-root,
+  .ikea-man .im-torso,
+  .ikea-man .im-j { transition: none; }
+  .ikea-man,
+  .ikea-man * { animation: none !important; }
+}

@@ -1,4 +1,14 @@
+# HUSBY: monteringsanvisning for Tom Erland Husby
 
+CV og portefølje for Tom Erland Husby, laget som en animert parodi på en IKEA-monteringsanvisning.
+Produktet heter HUSBY. Tom er produktet.
+
+- Alt innhold ligger i `src/data/cv.ts`.
+- Figuren og SVG-delene ligger i `src/components/ikea/`, sidene i `src/components/sections/`.
+- Ingen bilder og ingen animasjonsbibliotek: alt er håndskrevet SVG, CSS og litt React.
+- Se `agents.md` for oversikt over funksjoner og struktur, og `log.md` for historikk.
+
+HUSBY er ikke et IKEA-produkt, og siden har ingen tilknytning til IKEA.
 
 ## Project info
 
