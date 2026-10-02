@@ -28,6 +28,8 @@ Sist oppdatert: 2026-10-02
 - [x] Eget delingsbilde (OG) i IKEA-stil: `public/og-image.png`
 - [x] Bygg, typecheck, lint og skjermbilder (desktop, nettbrett og mobil)
 - [x] Commit og push til ccr-0a588272-iuvvje
+- [x] Pull request mot main: #14 (https://github.com/Tombonator3000/tom-erland-showcase/pull/14)
+- [ ] Merge PR #14 (Tom) og sjekk at GitHub Pages-deployen går grønt
 
 ## Må avklares med Tom
 

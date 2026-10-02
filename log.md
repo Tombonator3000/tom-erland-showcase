@@ -1980,3 +1980,8 @@ Branch: `ccr-0a588272-iuvvje`
 - Lagde `public/og-image.png` (1200 x 630) fra forsiden med Playwright, uten meny og transportbånd.
 - `index.html`: `og:image` og `twitter:image` peker nå på `https://tombonator3000.github.io/tom-erland-showcase/og-image.png` i stedet for Lovables standardbilde. La til bredde, høyde og alt-tekst.
 - Fungerer når main er deployet til GitHub Pages.
+
+### 05:02 UTC - Pull request
+- Brukeren ba om pull request. Opprettet PR #14 fra `ccr-0a588272-iuvvje` mot `main`: https://github.com/Tombonator3000/tom-erland-showcase/pull/14
+- Ingen PR-mal i repoet. `main` hadde ikke flyttet seg siden branchen ble laget, og GitHub melder at PR-en kan merges uten konflikter.
+- Ingen CI kjører på PR-er her. `deploy.yml` kjører først ved push til `main`, og bygger og deployer da til GitHub Pages.
