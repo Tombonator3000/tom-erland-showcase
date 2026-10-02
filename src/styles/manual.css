@@ -1,0 +1,253 @@
+/*
+ * Scenes: the inline SVG illustrations in the manual.
+ *
+ * Classes used inside a scene:
+ *   .ln     ink line, no fill          .sf   paper fill + ink outline
+ *   .sh     shaded fill + ink outline  .ink  solid ink fill
+ *   .draw   line draws itself when the scene becomes visible (needs pathLength=1)
+ *   .pop    pops in (springy scale)    .fade fades in
+ * Delays come from the --d custom property on the element.
+ */
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.scene .ln,
+.scene .sf,
+.scene .sh,
+.scene .sh2,
+.scene .yl,
+.scene .ink-ln {
+  stroke: var(--ink);
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.scene .ln { fill: none; }
+.scene .sf { fill: var(--sheet); }
+.scene .sh { fill: var(--shade); }
+.scene .sh2 { fill: var(--shade-2); }
+.scene .yl { fill: var(--yellow); }
+.scene .ink { fill: var(--ink); stroke: none; }
+.scene .ink-ln { fill: var(--ink); }
+.scene .thin { stroke-width: 1.6px; }
+.scene .hair { stroke-width: 1.1px; }
+.scene .bold { stroke-width: 3.6px; }
+.scene .dash { stroke-dasharray: 4 6; }
+.scene .dots { stroke-dasharray: 0.1 7; stroke-width: 3px; }
+.scene .grey { stroke: var(--ink-3); }
+
+.scene .t-label {
+  font-family: "Noto Sans Variable", "Noto Sans", sans-serif;
+  font-weight: 800;
+  fill: var(--ink);
+}
+.scene .t-mono {
+  font-family: "Noto Sans Mono Variable", "Noto Sans Mono", ui-monospace, monospace;
+  fill: var(--ink);
+}
+.scene .t-paper { fill: var(--sheet); }
+
+/* ---------- Draw on reveal ---------- */
+
+.scene .draw {
+  stroke-dasharray: 1 1.2;
+  stroke-dashoffset: 1.1;
+  transition:
+    stroke-dashoffset var(--dur, 1.1s) cubic-bezier(0.6, 0, 0.3, 1) var(--d, 0s),
+    fill-opacity 0.5s ease calc(var(--d, 0s) + var(--dur, 1.1s) * 0.55);
+}
+.scene .draw.sf,
+.scene .draw.sh,
+.scene .draw.sh2,
+.scene .draw.yl,
+.scene .draw.ink-ln { fill-opacity: 0; }
+
+.scene.is-drawn .draw {
+  stroke-dashoffset: 0;
+  fill-opacity: 1;
+}
+
+.scene .pop {
+  opacity: 0;
+  transform: scale(0.35);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 0.25s ease var(--d, 0s),
+    transform 0.55s cubic-bezier(0.34, 1.8, 0.5, 1) var(--d, 0s);
+}
+.scene.is-drawn .pop {
+  opacity: 1;
+  transform: none;
+}
+
+.scene .fade {
+  opacity: 0;
+  transition: opacity 0.6s ease var(--d, 0s);
+}
+.scene.is-drawn .fade { opacity: 1; }
+
+.scene .drop {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition:
+    opacity 0.2s ease var(--d, 0s),
+    transform 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) var(--d, 0s);
+}
+.scene.is-drawn .drop {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Ambient loops (paused off screen) ---------- */
+
+.scene .spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: m-spin 26s linear infinite;
+}
+.scene .spin-fast {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: m-spin 1.6s linear infinite;
+}
+.scene .bob {
+  animation: m-bob 3s ease-in-out infinite;
+}
+.scene .ring {
+  transform-box: fill-box;
+  transform-origin: 50% 80%;
+  animation: m-ring 1.6s ease-in-out infinite;
+}
+.scene .steam {
+  animation: m-steam 2.6s ease-in-out infinite;
+}
+.scene .blink {
+  animation: m-blink 1.2s steps(2, jump-none) infinite;
+}
+.scene .wiggle {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: m-wiggle 2.8s ease-in-out infinite;
+}
+.scene .pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: m-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes m-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes m-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes m-ring {
+  0%, 40%, 100% { transform: rotate(0deg); }
+  5%, 15%, 25% { transform: rotate(-9deg); }
+  10%, 20%, 30% { transform: rotate(9deg); }
+}
+@keyframes m-steam {
+  0% { transform: translateY(4px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-12px); opacity: 0; }
+}
+@keyframes m-blink {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes m-wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@keyframes m-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.scene.is-paused *,
+.is-paused .scene * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene .draw,
+  .scene .pop,
+  .scene .fade,
+  .scene .drop {
+    transition: none !important;
+    stroke-dashoffset: 0 !important;
+    fill-opacity: 1 !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .scene * {
+    animation: none !important;
+  }
+}
+
+/* ---------- Prop specifics ---------- */
+
+.scene .win-pane { transition: fill 0.9s ease; }
+.scene .win-sun,
+.scene .win-moon { transition: opacity 0.9s ease; }
+
+.scene .rack-unit { transition: transform 1.1s cubic-bezier(0.5, 0, 0.2, 1); }
+
+.scene .hourglass {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: m-flip 5s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+.scene .sand-top { transform-box: fill-box; transform-origin: 50% 100%; animation: m-sand-top 5s linear infinite; }
+.scene .sand-bottom { transform-box: fill-box; transform-origin: 50% 100%; animation: m-sand-bottom 5s linear infinite; }
+@keyframes m-flip {
+  0%, 84% { transform: rotate(0deg); }
+  100% { transform: rotate(180deg); }
+}
+@keyframes m-sand-top {
+  0% { transform: scale(1); }
+  84%, 100% { transform: scale(0.15); }
+}
+@keyframes m-sand-bottom {
+  0% { transform: scale(0.2); }
+  84%, 100% { transform: scale(1); }
+}
+
+/* ---------- Project art loops ---------- */
+
+.scene .laser {
+  stroke-dasharray: 8 10;
+  animation: m-laser 0.55s linear infinite;
+}
+@keyframes m-laser {
+  to { stroke-dashoffset: -18; }
+}
+.scene .road {
+  animation: m-road 0.5s linear infinite;
+}
+@keyframes m-road {
+  to { stroke-dashoffset: -10; }
+}
+.scene .tile-flip {
+  animation: m-tile 3.1s steps(1, end) infinite;
+}
+@keyframes m-tile {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.scene .eye-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: m-eye 4.2s ease-in-out infinite;
+}
+@keyframes m-eye {
+  0%, 90%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.08); }
+}
