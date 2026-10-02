@@ -54,7 +54,7 @@ Skape en imponerende showcase-nettside som:
 
 ## Nåværende Utfordringer
 1. Kontaktadresse: siden har ingen e-post eller skjema. Kontakt går via LinkedIn og GitHub til Tom bestemmer en adresse.
-2. OG-bildet i `index.html` peker fortsatt på et generisk Lovable-bilde.
+2. Delingsbildet (`public/og-image.png`) er lenket med full GitHub Pages-adresse. Det virker først når main er deployet.
 3. Testet i Chromium (desktop, nettbrett, mobil). Ikke testet i Safari eller Firefox.
 
 ## Fremtidige Planer

@@ -25,6 +25,7 @@ Sist oppdatert: 2026-10-02
 - [x] prefers-reduced-motion, tastaturnavigasjon og skip-lenke
 - [x] Rydde bort gamle komponenter
 - [x] Oppdatere index.html (tittel, meta, favicon)
+- [x] Eget delingsbilde (OG) i IKEA-stil: `public/og-image.png`
 - [x] Bygg, typecheck, lint og skjermbilder (desktop, nettbrett og mobil)
 - [x] Commit og push til ccr-0a588272-iuvvje
 
@@ -36,7 +37,6 @@ Sist oppdatert: 2026-10-02
 
 ## Senere / ideer
 
-- [ ] Eget OG-bilde i IKEA-stil (index.html peker fortsatt på et Lovable-bilde)
 - [ ] Teste i Safari og Firefox (bare Chromium er testet)
 - [ ] Rydde de to gamle lint-feilene i shadcn-filene (`ui/command.tsx`, `ui/textarea.tsx`)
 - [ ] Vurdere å fjerne shadcn-komponenter og avhengigheter som ikke brukes (mindre bundle)

@@ -1975,3 +1975,8 @@ Branch: `ccr-0a588272-iuvvje`
 - Skruejakt testet automatisk: teller 1/5 til 5/5, feiring vises, lagres i localStorage, Escape lukker.
 - Redusert bevegelse testet: ingen intro, alt ferdig tegnet, sprengskissen vises ferdig montert.
 - Ikke testet i Safari eller Firefox (finnes ikke i testmiljøet).
+
+### ca. 04:35 UTC - Delingsbilde
+- Lagde `public/og-image.png` (1200 x 630) fra forsiden med Playwright, uten meny og transportbånd.
+- `index.html`: `og:image` og `twitter:image` peker nå på `https://tombonator3000.github.io/tom-erland-showcase/og-image.png` i stedet for Lovables standardbilde. La til bredde, høyde og alt-tekst.
+- Fungerer når main er deployet til GitHub Pages.
